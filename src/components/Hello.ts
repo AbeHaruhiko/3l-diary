@@ -1,16 +1,14 @@
-export default {
-    methods: {
-        sayHello: function () {
-            alert("hello");
-        }
-    },
-    template: require("./Hello.html"),
-    data: function() {
+"use strict"
+
+import VueComponent from "vue-class-component";
+
+@VueComponent({
+    template: require("./Hello.html")
+})
+export class Hello {
+    data() {
         return {
-            msg: "Hello!"
+            msg: "Hello!!!"
         };
-    },
-    hoge: function(hogehoge: string): boolean {
-        return hoge;
     }
 }
