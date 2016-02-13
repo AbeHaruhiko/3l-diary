@@ -1,14 +1,16 @@
-"use strict"
+/// <reference path='../../typings/tsd.d.ts' />
 
-import VueComponent from "vue-class-component";
+'use strict'
+
+import VueComponent from 'vue-class-component'
 
 @VueComponent({
-    template: require("./Hello.html")
+    template: require('./Hello.html')
 })
 export class Hello {
     data() {
         return {
-            msg: "Hello!!!"
-        };
+            msg: 'Hello!!!'
+        }
     }
 }
