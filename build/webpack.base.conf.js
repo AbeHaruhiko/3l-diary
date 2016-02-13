@@ -25,7 +25,7 @@ module.exports = {
         loader: "html"
       },
       {
-        test: /\.ts(x?)$/,
+        test: /\.ts$/,
         loader: 'ts-loader'
       },
       {
