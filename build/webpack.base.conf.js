@@ -2,7 +2,7 @@ var path = require('path')
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/main.ts'
   },
   output: {
     path: path.resolve(__dirname, '../dist/static'),
@@ -23,6 +23,10 @@ module.exports = {
       {
         test: /\.html$/,
         loader: "html"
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css'
       },
       {
         test: /\.ts$/,
@@ -48,7 +52,12 @@ module.exports = {
           limit: 10000,
           name: '[name].[ext]?[hash:7]'
         }
-      }
+      },
+      // bootstrap.cssの中に使うWebFontを（デフォルトで）base64エンコードされます
+      { test: /\.svg$/, loader: 'url-loader?mimetype=image/svg+xml' },
+      { test: /\.woff(2)?$/, loader: 'url-loader?mimetype=application/font-woff' },
+      { test: /\.eot$/, loader: 'url-loader?mimetype=application/font-woff' },
+      { test: /\.ttf$/, loader: 'url-loader?mimetype=application/font-woff' }
     ]
   },
   vue: {

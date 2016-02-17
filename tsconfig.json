@@ -12,8 +12,8 @@
         "experimentalDecorators": true
     },
     "formatCodeOptions": {
-        "indentSize": 4,
-        "tabSize": 4,
+        "indentSize": 2,
+        "tabSize": 2,
         "newLineCharacter": "\r\n",
         "convertTabsToSpaces": true,
         "insertSpaceAfterCommaDelimiter": true,
@@ -33,8 +33,12 @@
     "files": [
         "./src/App.ts",
         "./src/components/Hello.ts",
+        "./src/components/Login.ts",
+        "./src/main.ts",
+        "./typings/firebase/firebase.d.ts",
         "./typings/node/node.d.ts",
         "./typings/tsd.d.ts",
+        "./typings/vue-router/vue-router.d.ts",
         "./typings/vue/vue.d.ts"
     ],
     "atom": {

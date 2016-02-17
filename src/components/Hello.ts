@@ -5,12 +5,12 @@
 import VueComponent from 'vue-class-component'
 
 @VueComponent({
-    template: require('./Hello.html')
+  template: require('./Hello.html')
 })
-export class Hello {
-    data() {
-        return {
-            msg: 'Hello!!!'
-        }
+export default class {
+  data(): { msg: string } {
+    return {
+      msg: 'Hello World!'
     }
+  }
 }
