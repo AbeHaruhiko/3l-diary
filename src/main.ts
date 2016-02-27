@@ -2,7 +2,6 @@
 
 import Vue = require('vue')
 import VueRouter = require('vue-router')
-import Firebase = require('firebase')
 
 import App from './App'
 
