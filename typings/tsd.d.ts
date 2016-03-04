@@ -3,3 +3,4 @@
 /// <reference path="node/node.d.ts" />
 /// <reference path="firebase/firebase.d.ts" />
 /// <reference path="vue-router/vue-router.d.ts" />
+/// <reference path="jquery/jquery.d.ts" />

@@ -32,10 +32,12 @@
     ],
     "files": [
         "./src/App.ts",
+        "./src/components/edit/Edit.ts",
         "./src/components/Hello.ts",
-        "./src/components/Login.ts",
+        "./src/components/login/Login.ts",
         "./src/main.ts",
         "./typings/firebase/firebase.d.ts",
+        "./typings/jquery/jquery.d.ts",
         "./typings/node/node.d.ts",
         "./typings/tsd.d.ts",
         "./typings/vue-router/vue-router.d.ts",

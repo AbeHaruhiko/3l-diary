@@ -16,6 +16,9 @@
     },
     "vue-router/vue-router.d.ts": {
       "commit": "b57c33fec0be3cba8f5e9cec642db873565923d0"
+    },
+    "jquery/jquery.d.ts": {
+      "commit": "24635d778d7ff1f7665f04239563b2ef2684ee1c"
     }
   }
 }

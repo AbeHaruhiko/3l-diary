@@ -54,10 +54,14 @@ module.exports = {
         }
       },
       // bootstrap.cssの中に使うWebFontを（デフォルトで）base64エンコードされます
-      { test: /\.svg$/, loader: 'url-loader?mimetype=image/svg+xml' },
-      { test: /\.woff(2)?$/, loader: 'url-loader?mimetype=application/font-woff' },
-      { test: /\.eot$/, loader: 'url-loader?mimetype=application/font-woff' },
-      { test: /\.ttf$/, loader: 'url-loader?mimetype=application/font-woff' }
+      { test: /\.svg(\?v=\d\.\d\.\d)?$/, loader: 'url-loader?mimetype=image/svg+xml' },
+      { test: /\.woff(2)?(\?v=\d\.\d\.\d)??$/, loader: 'url-loader?mimetype=application/font-woff' },
+      { test: /\.eot(\?v=\d\.\d\.\d)?$/, loader: 'url-loader?mimetype=application/font-woff' },
+      { test: /\.ttf(\?v=\d\.\d\.\d)?$/, loader: 'url-loader?mimetype=application/font-woff' },
+      { test: /\.otf(\?v=\d\.\d\.\d)?$/, loader: 'url-loader?mimetype=application/font-woff' },
+      // **IMPORTANT** This is needed so that each bootstrap js file required by
+      // bootstrap-webpack has access to the jQuery object
+      { test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' }
     ]
   },
   vue: {
