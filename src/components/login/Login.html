@@ -29,13 +29,16 @@
         </div>
         <div class="form-group">
           <div class="col-sm-12">
-            <button class="btn btn-default">ログイン</button>
+            <button class="btn btn-default" @click.stop.prevent="login">ログイン</button>
           </div>
         </div>
       </form>
     </div>
     <div class="panel-footer">
-      または <button class="btn btn-default">Facebookでログイン</button>
+      または <a @click.stop.prevent="loginWithProvider('facebook')" class="auth-provider-icon"><i class="fa fa-facebook-official"></i></a>
+      <a @click.stop.prevent="loginWithProvider('twitter')" class="auth-provider-icon"><i class="fa fa-twitter-square"></i></a>
+      <a @click.stop.prevent="loginWithProvider('github')" class="auth-provider-icon"><i class="fa fa-github"></i></a>
+      <a @click.stop.prevent="loginWithProvider('google')" class="auth-provider-icon"><i class="fa fa-google"></i></a>
     </div>
   </div>
   <a class="btn btn-default" ui-sref="signup">アカウントがない場合はここから新規登録</a>
