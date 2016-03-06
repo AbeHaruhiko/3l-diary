@@ -319,7 +319,18 @@ interface FirebaseAuthData {
 	expires: number;
 	auth: Object;
 	google?: FirebaseAuthDataGoogle;
+	// 2016/03/06 安部追加
+	password?: FirebaseCredentials;
+	twitter?: FirebaseAuthDataTwFb;
+	facebook?: FirebaseAuthDataTwFb;
+	// 2016/03/06 安部追加
 }
+
+// 2016/03/06 安部追加
+interface FirebaseAuthDataTwFb {
+	displayName: string;
+}
+// 2016/03/06 安部追加
 
 interface FirebaseAuthDataGoogle {
 	accessToken: string;

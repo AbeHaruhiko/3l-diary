@@ -13,6 +13,20 @@ export default class {
 
   created() {
     this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
+
+    this.firebaseRef.onAuth((authData) => {
+      this.firebaseRef.child('users').child(authData.uid).on('value', (snapshot) => {
+        if (authData && !snapshot.exists()) {
+          // save the user's profile into the database so we can list users,
+          // use them in Security and Firebase Rules, and show profiles
+          this.firebaseRef.child('users').child(authData.uid).set({
+            provider: authData.provider,
+            name: this.getName(authData)
+          })
+        }
+      })
+    })
+
   }
 
   signup(email: string, password: string, route) {
@@ -41,6 +55,18 @@ export default class {
         console.log('Authenticated successfully with payload:', authData)
         route.router.go('/edit')
       }
+    }
+  }
+
+  // find a suitable name based on the meta info given by each provider
+  getName(authData: FirebaseAuthData): string {
+    switch (authData.provider) {
+       case 'password':
+         return authData.password.email.replace(/@.*/, '');
+       case 'twitter':
+         return authData.twitter.displayName;
+       case 'facebook':
+         return authData.facebook.displayName;
     }
   }
 }
