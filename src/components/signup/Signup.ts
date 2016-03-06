@@ -3,9 +3,7 @@
 'use strict'
 
 import VueComponent from 'vue-class-component'
-
 import Firebase = require('firebase')
-
 import Auth from '../auth/Auth'
 
 require('./Signup.css')
@@ -37,24 +35,10 @@ export default class {
   }
 
   signup() {
-    // this.firebaseRef.createUser({
-    //   email: this.email,
-    //   password: this.password
-    // }, this.authCallback)
     this.authService.signup(this.email, this.password, this.$route)
   }
 
   loginWithProvider(provider: string) {
-    // this.firebaseRef.authWithOAuthPopup(provider, this.authCallback)
     this.authService.loginWithProvider(provider)
   }
-
-  // authCallback(error: string, userData) {
-  //   if (error) {
-  //     console.log('Signup Failed!', error)
-  //   } else {
-  //     console.log('Authenticated successfully with payload:', userData)
-  //     this.$route.router.go('/edit')
-  //   }
-  // }
 }

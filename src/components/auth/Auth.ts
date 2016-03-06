@@ -3,7 +3,6 @@
 'use strict'
 
 import VueComponent from 'vue-class-component'
-
 import Firebase = require('firebase')
 
 @VueComponent({
