@@ -8,10 +8,10 @@ import Firebase = require('firebase')
 
 import Auth from '../auth/Auth'
 
-require('./Login.css')
+require('./Signup.css')
 
 @VueComponent({
-  template: require('./Login.html')
+  template: require('./Signup.html')
 })
 export default class {
 
@@ -36,12 +36,12 @@ export default class {
     this.authService = new Auth()
   }
 
-  login() {
-    // this.firebaseRef.authWithPassword({
+  signup() {
+    // this.firebaseRef.createUser({
     //   email: this.email,
     //   password: this.password
     // }, this.authCallback)
-    this.authService.login(this.email, this.password, this.$route)
+    this.authService.signup(this.email, this.password, this.$route)
   }
 
   loginWithProvider(provider: string) {
@@ -49,11 +49,11 @@ export default class {
     this.authService.loginWithProvider(provider)
   }
 
-  // authCallback(error: string, authData) {
+  // authCallback(error: string, userData) {
   //   if (error) {
-  //     console.log('Login Failed!', error)
+  //     console.log('Signup Failed!', error)
   //   } else {
-  //     console.log('Authenticated successfully with payload:', authData)
+  //     console.log('Authenticated successfully with payload:', userData)
   //     this.$route.router.go('/edit')
   //   }
   // }

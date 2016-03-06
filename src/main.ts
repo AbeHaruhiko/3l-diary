@@ -8,7 +8,9 @@ import App from './App'
 import Hello from './components/Hello'
 import Login from './components/login/Login'
 import Edit from './components/edit/Edit'
-// import Signup from '../component/Signup'
+import Signup from './components/signup/Signup'
+
+require('bootstrap')
 
 require('../node_modules/bootstrap/dist/css/bootstrap.css')
 require('../node_modules/font-awesome/css/font-awesome.min.css')
@@ -29,6 +31,9 @@ router.map({
   },
   '/login': {
       component: Login
+  },
+  '/signup': {
+      component: Signup
   },
     // '/signup': {
     //     component: Signup
