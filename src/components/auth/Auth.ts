@@ -15,8 +15,11 @@ export default class {
     this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
 
     this.firebaseRef.onAuth((authData) => {
+      if (!authData) {
+        return
+      }
       this.firebaseRef.child('users').child(authData.uid).on('value', (snapshot) => {
-        if (authData && !snapshot.exists()) {
+        if (!snapshot.exists()) {
           // save the user's profile into the database so we can list users,
           // use them in Security and Firebase Rules, and show profiles
           this.firebaseRef.child('users').child(authData.uid).set({
@@ -33,7 +36,21 @@ export default class {
     this.firebaseRef.createUser({
       email: email,
       password: password
-    }, this.getAuthCallback(route))
+    }).then((userData: FirebaseUserData) => {
+      console.log('Successfully created user account with uid:', userData.uid);
+      this.login(email, password, route)
+    }, (error) => {
+      switch (error.code) {
+        case 'EMAIL_TAKEN':
+        console.log('The new user account cannot be created because the email is already in use.');
+        break;
+        case 'INVALID_EMAIL':
+        console.log('The specified email is not a valid email.');
+        break;
+        default:
+        console.log('Error creating user:', error);
+      }
+    })
   }
 
   login(email: string, password: string, route) {
@@ -45,6 +62,10 @@ export default class {
 
   loginWithProvider(provider: string) {
     this.firebaseRef.authWithOAuthPopup(provider, this.getAuthCallback)
+  }
+
+  logout(): void {
+    this.firebaseRef.unauth();
   }
 
   getAuthCallback(route): (error: any, authData: FirebaseAuthData) => void {

@@ -39,6 +39,7 @@
         "./src/components/signin/Signup.ts",
         "./src/components/signup/Signup.ts",
         "./src/main.ts",
+        "./typings/es6-promise/es6-promise.d.ts",
         "./typings/firebase/firebase.d.ts",
         "./typings/jquery/jquery.d.ts",
         "./typings/node/node.d.ts",
