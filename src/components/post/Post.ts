@@ -3,7 +3,6 @@
 'use strict'
 
 import VueComponent from 'vue-class-component'
-import Auth from '../auth/Auth'
 
 // require('imports?jQuery=jquery!bootstrap')
 
@@ -16,7 +15,6 @@ export default class {
 
   $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
 
-  templates: string[]
   diaryContent: string
 
   data(): { msg: string } {
@@ -25,9 +23,16 @@ export default class {
     }
   }
 
-  created() {
-    this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
-  }
+  // created() {
+  //   this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
+  //   this.firebaseRef.child('posts/' + this.firebaseRef.getAuth().uid)
+  //   .orderByChild('createdAt')
+  //   .startAt(0)
+  //   .limitToLast(3)
+  //   .on('value', () => {
+  //
+  //   })
+  // }
 
   save() {
     const authData: FirebaseAuthData = this.firebaseRef.getAuth()

@@ -36,7 +36,7 @@
         "./src/components/edit/Edit.ts",
         "./src/components/Hello.ts",
         "./src/components/login/Login.ts",
-        "./src/components/signin/Signup.ts",
+        "./src/components/post/Post.ts",
         "./src/components/signup/Signup.ts",
         "./src/main.ts",
         "./typings/es6-promise/es6-promise.d.ts",
