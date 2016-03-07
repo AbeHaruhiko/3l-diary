@@ -42,13 +42,13 @@ export default class {
     }, (error) => {
       switch (error.code) {
         case 'EMAIL_TAKEN':
-        console.log('The new user account cannot be created because the email is already in use.');
-        break;
+          console.log('The new user account cannot be created because the email is already in use.');
+          break;
         case 'INVALID_EMAIL':
-        console.log('The specified email is not a valid email.');
-        break;
+          console.log('The specified email is not a valid email.');
+          break;
         default:
-        console.log('Error creating user:', error);
+          console.log('Error creating user:', error);
       }
     })
   }
