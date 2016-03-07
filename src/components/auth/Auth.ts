@@ -64,8 +64,9 @@ export default class {
     this.firebaseRef.authWithOAuthPopup(provider, this.getAuthCallback)
   }
 
-  logout(): void {
-    this.firebaseRef.unauth();
+  logout(route): void {
+    this.firebaseRef.unauth()
+    route.router.go('/login')
   }
 
   getAuthCallback(route): (error: any, authData: FirebaseAuthData) => void {

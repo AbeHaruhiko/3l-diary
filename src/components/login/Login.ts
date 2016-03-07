@@ -13,14 +13,14 @@ require('./Login.css')
 })
 export default class {
 
-  firebaseRef: Firebase;
+  firebaseRef: Firebase
 
-  authService: Auth;
+  authService: Auth
 
-  email: string;
-  password: string;
+  email: string
+  password: string
 
-  $route;   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
+  $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
 
   data(): any {
     return {

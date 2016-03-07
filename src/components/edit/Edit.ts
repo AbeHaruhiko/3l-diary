@@ -14,6 +14,8 @@ export default class {
 
   firebaseRef: Firebase
 
+  $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
+
   templates: string[]
   diaryContent: string
 
@@ -24,7 +26,7 @@ export default class {
   }
 
   logout(): void {
-    new Auth().logout()
+    new Auth().logout(this.$route)
   }
   // created() {
   //   this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
