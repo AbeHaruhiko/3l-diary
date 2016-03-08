@@ -9,8 +9,8 @@ import VueComponent from 'vue-class-component'
 @VueComponent({
   template: require('./Post.html'),
   props: {
-    // diary: Object
-  },
+    diary: {}
+  }
 })
 export default class {
 
@@ -23,7 +23,7 @@ export default class {
   data(): any {
     return {
       msg: 'Hello World!',
-      diary: {}
+      // diary: {}
     }
   }
 
