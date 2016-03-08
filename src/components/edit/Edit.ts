@@ -31,10 +31,12 @@ export default class {
 
   save() {
     const authData: FirebaseAuthData = this.firebaseRef.getAuth()
-    this.firebaseRef.child('posts').child(authData.uid).push({
+    const timestamp = new Date().getTime()
+    const post = this.firebaseRef.child('posts').child(authData.uid).push()
+    post.setWithPriority({
       content: this.diaryContent,
-      createdAt: new Date().getTime(),
-      updatedAt: new Date().getTime()
-    })
+      createdAt: timestamp,
+      updatedAt: timestamp
+    }, -(timestamp))  // 降順に取得したいので、priorityをtimestampのマイナス値にセットする。
   }
 }

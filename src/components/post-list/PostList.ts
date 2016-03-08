@@ -4,13 +4,11 @@
 
 import VueComponent from 'vue-class-component'
 
-// require('imports?jQuery=jquery!bootstrap')
+import Post from '../post/Post'
 
 @VueComponent({
-  template: require('./Post.html'),
-  props: {
-    // diary: Object
-  },
+  template: require('./PostList.html'),
+  components: { 'post': Post }
 })
 export default class {
 
@@ -18,12 +16,11 @@ export default class {
 
   $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
 
-  // diary: { content: string, createdAt: Date, updatedAt: Date }
+  diaries: Object[];
 
   data(): any {
     return {
-      msg: 'Hello World!',
-      diary: {}
+      diaries: []
     }
   }
 
@@ -31,16 +28,10 @@ export default class {
     this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
     // const uid = this.firebaseRef.getAuth().uid
     // console.log('uid: ' + uid)
-    // this.firebaseRef.child('posts/' + this.firebaseRef.getAuth().uid)
-    // // .orderByPriority()
-    // .orderByChild('')
-    // // .startAt(0)
-    // .limit(2)
-    // .on('child_added', (post) => {
-    //   console.log(post.val())
-    //   post.forEach((post) => {
-    //     this.diaries.push(post.val())
-    //   })
-    // })
+    this.firebaseRef.child('posts/' + this.firebaseRef.getAuth().uid)
+    .on('child_added', (post) => {
+      console.log(post.val())
+        this.diaries.push(post.val())
+    })
   }
 }

@@ -6,9 +6,11 @@ import VueRouter = require('vue-router')
 import App from './App'
 
 import Hello from './components/Hello'
+import Signup from './components/signup/Signup'
 import Login from './components/login/Login'
 import Edit from './components/edit/Edit'
-import Signup from './components/signup/Signup'
+import Post from './components/post/Post'
+import PostList from './components/post-list/PostList'
 
 require('bootstrap')
 
@@ -35,12 +37,15 @@ router.map({
   '/signup': {
       component: Signup
   },
-    // '/signup': {
-    //     component: Signup
-    // }
-    '/edit': {
-        component: Edit
-    },
+  '/post': {
+      component: Post
+  },
+  '/posts': {
+      component: PostList
+  },
+  '/edit': {
+      component: Edit
+  },
 })
 
 // 第二引数のelementをAppでリプレイスする。
