@@ -4,11 +4,13 @@
 
 import VueComponent from 'vue-class-component'
 
-// require('imports?jQuery=jquery!bootstrap')
+import Navbar from '../navbar/Navbar'
 
 @VueComponent({
   template: require('./Post.html'),
-  // diary: {}
+  components: {
+    'navbar': Navbar
+  }
 })
 export default class {
 
@@ -45,7 +47,7 @@ export default class {
       return ''
     }
   }
-  
+
   get content() {
     if (this.diary.val) {
       return this.diary.val().content
