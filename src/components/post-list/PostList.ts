@@ -34,8 +34,9 @@ export default class {
     // console.log('uid: ' + uid)
     this.firebaseRef.child('posts/' + this.firebaseRef.getAuth().uid)
     .on('child_added', (post) => {
+      console.log(post.key())
       console.log(post.val())
-        this.diaries.push(post.val())
+      this.diaries.push(post)
     })
   }
 }

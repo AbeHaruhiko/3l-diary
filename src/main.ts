@@ -37,7 +37,8 @@ router.map({
   '/signup': {
       component: Signup
   },
-  '/post': {
+  '/post/:post_id': {
+      name: 'post',
       component: Post
   },
   '/posts': {
