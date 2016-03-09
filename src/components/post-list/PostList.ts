@@ -5,7 +5,7 @@
 import VueComponent from 'vue-class-component'
 
 import Navbar from '../navbar/Navbar'
-import Post from '../post/Post'
+import Post from '../post-list-item/PostListItem'
 
 @VueComponent({
   template: require('./PostList.html'),

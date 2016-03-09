@@ -7,7 +7,7 @@ import VueComponent from 'vue-class-component'
 // require('imports?jQuery=jquery!bootstrap')
 
 @VueComponent({
-  template: require('./Post.html'),
+  template: require('./PostListItem.html'),
   props: {
     diary: {}
   }
