@@ -29,7 +29,7 @@
     "filesGlob": [
         "./**/*.ts",
         "!./node_modules/**/*.ts",
-        "!/typings/**/*.ts"
+        "!./typings/**/*.ts"
     ],
     "files": [
         "./src/App.ts",
@@ -41,21 +41,7 @@
         "./src/components/post-list/PostList.ts",
         "./src/components/post/Post.ts",
         "./src/components/signup/Signup.ts",
-        "./src/main.ts",
-        "./typings/browser.d.ts",
-        "./typings/browser/ambient/es6-promise/index.d.ts",
-        "./typings/browser/ambient/firebase/index.d.ts",
-        "./typings/browser/ambient/jquery/index.d.ts",
-        "./typings/browser/ambient/node/index.d.ts",
-        "./typings/browser/ambient/vue-router/index.d.ts",
-        "./typings/browser/ambient/vue/index.d.ts",
-        "./typings/main.d.ts",
-        "./typings/main/ambient/es6-promise/index.d.ts",
-        "./typings/main/ambient/firebase/index.d.ts",
-        "./typings/main/ambient/jquery/index.d.ts",
-        "./typings/main/ambient/node/index.d.ts",
-        "./typings/main/ambient/vue-router/index.d.ts",
-        "./typings/main/ambient/vue/index.d.ts"
+        "./src/main.ts"
     ],
     "atom": {
         "rewriteTsconfig": true

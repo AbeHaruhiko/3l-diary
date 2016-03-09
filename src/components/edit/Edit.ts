@@ -39,4 +39,8 @@ export default class {
       updatedAt: timestamp
     }, -(timestamp))  // 降順に取得したいので、priorityをtimestampのマイナス値にセットする。
   }
+  
+  logout(): void {
+    new Auth().logout(this.$route)
+  }
 }

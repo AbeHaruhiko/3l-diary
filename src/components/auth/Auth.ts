@@ -75,7 +75,7 @@ export default class {
         console.log('Signup Failed!', error)
       } else {
         console.log('Authenticated successfully with payload:', authData)
-        route.router.go('/edit')
+        route.router.go('/posts')
       }
     }
   }

@@ -41,11 +41,38 @@ router.map({
       component: Post
   },
   '/posts': {
-      component: PostList
+      component: PostList,
+      needsAuth: true
   },
   '/edit': {
       component: Edit
   },
+})
+
+// router.redirect({
+//     '/': '/posts'
+// })
+
+// 認証
+router.beforeEach(function (transition: vuerouter.Transition<any, any, any, any, any>) {
+    // if (transition.to.path === '/') {
+    //     transition.redirect('/posts')
+    //     return true
+    // }
+    console.log(transition)
+    if (transition.to["needsAuth"]) {
+        // 認証処理
+        const firebaseRef: Firebase = new Firebase('https://3l-diary.firebaseio.com/')
+        const auth: FirebaseAuthData = firebaseRef.getAuth()
+        console.log('auth： ' + auth.uid)
+        if (firebaseRef.getAuth()) {
+            transition.next()
+        } else {
+            transition.redirect('/login')
+        }
+    }
+    // qiita これがないとnext()やredirect()で遷移しない（URLだけ書き換わる）
+    return true
 })
 
 // 第二引数のelementをAppでリプレイスする。
