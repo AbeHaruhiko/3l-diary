@@ -18,6 +18,7 @@ export default class {
 
   $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
 
+  // props内のオブジェクトにアクセスしたいときは、クラスのプロパティとして定義して、thisでアクセス。
   diary: any
 
   data(): any {
@@ -31,7 +32,12 @@ export default class {
     this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
   }
 
-  // get postId(): string {
-  //   return this.diary.key()
-  // }
+  goPost() {
+    this.$route.router.go({ name: 'post', params: { post_id: this.diary.key() , diary: this.diary.val() } })
+  }
+
+  // props内のオブジェクトにアクセスしたいときは、クラスのプロパティとして定義して、thisでアクセス。
+  get postId(): string {
+    return this.diary.key()
+  }
 }
