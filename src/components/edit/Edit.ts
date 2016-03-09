@@ -3,12 +3,17 @@
 'use strict'
 
 import VueComponent from 'vue-class-component'
+
 import Auth from '../auth/Auth'
+import Navbar from '../navbar/Navbar'
 
 // require('imports?jQuery=jquery!bootstrap')
 
 @VueComponent({
-  template: require('./Edit.html')
+  template: require('./Edit.html'),
+  components: {
+    'navbar': Navbar
+  }
 })
 export default class {
 
