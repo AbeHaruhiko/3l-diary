@@ -1,4 +1,4 @@
-/// <reference path='../typings/tsd.d.ts' />
+/// <reference path='../typings/browser.d.ts' />
 
 import Vue = require('vue')
 import VueRouter = require('vue-router')

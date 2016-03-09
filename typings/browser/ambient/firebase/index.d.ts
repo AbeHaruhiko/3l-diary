@@ -4,7 +4,7 @@
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // 2016/03/06 安部追加
-/// <reference path="../es6-promise/es6-promise.d.ts"/>
+/// <reference path="../es6-promise/index.d.ts"/>
 // 2016/03/06 安部追加
 
 interface FirebaseAuthResult {
