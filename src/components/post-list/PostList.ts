@@ -4,11 +4,15 @@
 
 import VueComponent from 'vue-class-component'
 
+import Navbar from '../navbar/Navbar'
 import Post from '../post/Post'
 
 @VueComponent({
   template: require('./PostList.html'),
-  components: { 'post': Post }
+  components: {
+    'post': Post,
+    'navbar': Navbar
+  }
 })
 export default class {
 
