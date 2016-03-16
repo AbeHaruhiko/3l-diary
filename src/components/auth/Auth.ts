@@ -4,12 +4,22 @@
 
 import VueComponent from 'vue-class-component'
 import Firebase = require('firebase')
+var request = require('superagent')
 
 @VueComponent({
 })
 export default class {
 
   firebaseRef: Firebase
+  API_ENDPOINT: string
+  LOGIN_ENDPOINT: string
+
+  data() {
+      return {
+          API_ENDPOINT: "http://localhost:8080/api",
+          LOGIN_ENDPOINT: "http://localhost:8080/login"
+      }
+  }
 
   created() {
     this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
@@ -54,10 +64,17 @@ export default class {
   }
 
   login(email: string, password: string, route) {
-    this.firebaseRef.authWithPassword({
-      email: email,
-      password: password
-    }, this.getAuthCallback(route))
+    // this.firebaseRef.authWithPassword({
+    //   email: email,
+    //   password: password
+    // }, this.getAuthCallback(route))
+    request
+      .post(this.LOGIN_ENDPOINT)
+      .send({ user: email, password: password })
+      .end(function(err, res){
+        if (err) throw err
+        console.log(res.body)
+      });
   }
 
   loginWithProvider(provider: string) {

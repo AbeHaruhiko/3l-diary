@@ -5,7 +5,7 @@ module.exports = {
     app: './src/main.ts'
   },
   output: {
-    path: path.resolve(__dirname, '../dist/static'),
+    path: path.resolve(__dirname, 'd:/000.abe/01.project/08.private/04.3l-diary-server/repo/src/main/resources/public/static'),
     publicPath: '/static/',
     filename: '[name].js'
   },
@@ -61,7 +61,9 @@ module.exports = {
       { test: /\.otf(\?v=\d\.\d\.\d)?$/, loader: 'url-loader?mimetype=application/font-woff' },
       // **IMPORTANT** This is needed so that each bootstrap js file required by
       // bootstrap-webpack has access to the jQuery object
-      { test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' }
+    //   { test: /bootstrap.js$/, loader: 'imports?jQuery=jquery' }
+
+      { test: /(bootstrap.js$|bootstrap\/js\/)/, loader: 'imports?jQuery=jquery' }
     ]
   },
   vue: {
