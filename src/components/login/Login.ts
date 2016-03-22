@@ -31,7 +31,7 @@ export default class {
 
   created() {
     this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
-    this.authService = new Auth()
+    this.authService = Auth.getInstance()
   }
 
   login() {

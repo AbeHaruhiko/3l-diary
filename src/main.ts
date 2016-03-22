@@ -4,6 +4,7 @@ import Vue = require('vue')
 import VueRouter = require('vue-router')
 
 import App from './App'
+import Auth from './components/auth/Auth'
 
 import Hello from './components/Hello'
 import Signup from './components/signup/Signup'
@@ -56,17 +57,13 @@ router.map({
 
 // 認証
 router.beforeEach(function (transition: vuerouter.Transition<any, any, any, any, any>) {
-    // if (transition.to.path === '/') {
-    //     transition.redirect('/posts')
-    //     return true
-    // }
-    console.log(transition)
+
+   console.log(transition)
     if (transition.to["needsAuth"]) {
         // 認証処理
-        const firebaseRef: Firebase = new Firebase('https://3l-diary.firebaseio.com/')
-        const auth: FirebaseAuthData = firebaseRef.getAuth()
-        console.log('auth： ' + auth.uid)
-        if (firebaseRef.getAuth()) {
+        const authData = Auth.getInstance().authData
+        console.log('auth： ' + authData.token)
+        if (authData) {
             transition.next()
         } else {
             transition.redirect('/login')

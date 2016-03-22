@@ -2,87 +2,118 @@
 
 'use strict'
 
-import VueComponent from 'vue-class-component'
-import Firebase = require('firebase')
+// import Firebase = require('firebase')
 var request = require('superagent')
 
-@VueComponent({
-})
-export default class {
+export default class Auth {
 
-  firebaseRef: Firebase
-  API_ENDPOINT: string
-  LOGIN_ENDPOINT: string
-
-  data() {
-      return {
-          API_ENDPOINT: "http://localhost:8080/api",
-          LOGIN_ENDPOINT: "http://localhost:8080/login"
-      }
+  // firebaseRef: Firebase
+  private static API_ENDPOINT: string = 'http://localhost:8080/api'
+  private static LOGIN_ENDPOINT: string = 'http://localhost:8080/login'
+  
+  authData: { username: string, token: string } = { username: '', token: '' }
+  
+  private static _instance: Auth = null;
+  constructor() {
+    if (Auth._instance) {
+      throw new Error("must use the getInstance.");
+    }
+    Auth._instance = this;
   }
-
-  created() {
-    this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
-
-    this.firebaseRef.onAuth((authData) => {
-      if (!authData) {
-        return
-      }
-      this.firebaseRef.child('users').child(authData.uid).on('value', (snapshot) => {
-        if (!snapshot.exists()) {
-          // save the user's profile into the database so we can list users,
-          // use them in Security and Firebase Rules, and show profiles
-          this.firebaseRef.child('users').child(authData.uid).set({
-            provider: authData.provider,
-            name: this.getName(authData)
-          })
-        }
-      })
-    })
-
+  public static getInstance(): Auth {
+    if (Auth._instance === null) {
+      Auth._instance = new Auth();
+    }
+    return Auth._instance;
   }
+  
+  // data() {
+  //     return {
+  //         API_ENDPOINT: "http://localhost:8080/api",
+  //         LOGIN_ENDPOINT: "http://localhost:8080/login",
+  //         authData: {}
+  //     }
+  // }
+
+  // created() {
+  //   this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
+
+  //   this.firebaseRef.onAuth((authData) => {
+  //     if (!authData) {
+  //       return
+  //     }
+  //     this.firebaseRef.child('users').child(authData.uid).on('value', (snapshot) => {
+  //       if (!snapshot.exists()) {
+  //         // save the user's profile into the database so we can list users,
+  //         // use them in Security and Firebase Rules, and show profiles
+  //         this.firebaseRef.child('users').child(authData.uid).set({
+  //           provider: authData.provider,
+  //           name: this.getName(authData)
+  //         })
+  //       }
+  //     })
+  //   })
+
+  // }
 
   signup(email: string, password: string, route) {
-    this.firebaseRef.createUser({
-      email: email,
-      password: password
-    }).then((userData: FirebaseUserData) => {
-      console.log('Successfully created user account with uid:', userData.uid);
-      this.login(email, password, route)
-    }, (error) => {
-      switch (error.code) {
-        case 'EMAIL_TAKEN':
-          console.log('The new user account cannot be created because the email is already in use.');
-          break;
-        case 'INVALID_EMAIL':
-          console.log('The specified email is not a valid email.');
-          break;
-        default:
-          console.log('Error creating user:', error);
-      }
-    })
+    // this.firebaseRef.createUser({
+    //   email: email,
+    //   password: password
+    // }).then((userData: FirebaseUserData) => {
+    //   console.log('Successfully created user account with uid:', userData.uid);
+    //   this.login(email, password, route)
+    // }, (error) => {
+    //   switch (error.code) {
+    //     case 'EMAIL_TAKEN':
+    //       console.log('The new user account cannot be created because the email is already in use.');
+    //       break;
+    //     case 'INVALID_EMAIL':
+    //       console.log('The specified email is not a valid email.');
+    //       break;
+    //     default:
+    //       console.log('Error creating user:', error);
+    //   }
+    // })
   }
 
   login(email: string, password: string, route) {
-    // this.firebaseRef.authWithPassword({
-    //   email: email,
-    //   password: password
-    // }, this.getAuthCallback(route))
-    request
-      .post(this.LOGIN_ENDPOINT)
-      .send({ user: email, password: password })
-      .end(function(err, res){
-        if (err) throw err
-        console.log(res.body)
-      });
+    
+    if (this.authData && this.authData.token) {
+      request
+        .get(Auth.LOGIN_ENDPOINT)
+        .set('x-auth-token', this.authData.token)
+        .end((err, res) => {
+          if (err) {
+            throw err
+          }
+          console.log('Authenticated successfully with payload:', this.authData)
+          route.router.go('/posts')
+        });
+    } else {
+      request
+        .post(Auth.LOGIN_ENDPOINT)
+        .type('form')
+        .send({ username: email })
+        .send({ password: password })
+        .end((err, res) => {
+          if (err) {
+            throw err
+          }
+          this.authData.username = email
+          this.authData.token = res.header['x-auth-token']
+          console.log('Authenticated successfully with payload:', this.authData)
+          route.router.go('/posts')
+        });
+    }
   }
 
   loginWithProvider(provider: string) {
-    this.firebaseRef.authWithOAuthPopup(provider, this.getAuthCallback)
+    // this.firebaseRef.authWithOAuthPopup(provider, this.getAuthCallback)
   }
 
   logout(route): void {
-    this.firebaseRef.unauth()
+    // this.firebaseRef.unauth()
     route.router.go('/login')
   }
 
