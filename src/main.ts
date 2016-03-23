@@ -4,6 +4,8 @@ import Vue = require('vue')
 import VueRouter = require('vue-router')
 
 import App from './App'
+import store from './vuex/store'
+var { sync } = require('vuex-router-sync')
 import Auth from './components/auth/Auth'
 
 import Hello from './components/Hello'
@@ -61,9 +63,8 @@ router.beforeEach(function (transition: vuerouter.Transition<any, any, any, any,
    console.log(transition)
     if (transition.to["needsAuth"]) {
         // 認証処理
-        const authData = Auth.getInstance().authData
-        console.log('auth： ' + authData.token)
-        if (authData) {
+        console.log('auth： ' + store.state.authData.token)
+        if (store.state.authData) {
             transition.next()
         } else {
             transition.redirect('/login')
@@ -73,5 +74,11 @@ router.beforeEach(function (transition: vuerouter.Transition<any, any, any, any,
     return true
 })
 
+sync(store, router)
+
 // 第二引数のelementをAppでリプレイスする。
+// router.start({
+//   store,
+//   components: { App }
+// }, '#app')
 router.start(App, '#app')
