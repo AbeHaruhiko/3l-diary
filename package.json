@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
+    "devbuild": "rimraf ../04.3l-diary-server/repo/src/main/resources/public/static && webpack --progress --hide-modules --config build/webpack.dev_build.conf.js",
     "build": "rimraf ../04.3l-diary-server/repo/src/main/resources/public/static && webpack --progress --hide-modules --config build/webpack.prod.conf.js",
     "test": "karma start build/karma.conf.js --single-run"
   },
