@@ -74,11 +74,8 @@ router.beforeEach(function (transition: vuerouter.Transition<any, any, any, any,
     return true
 })
 
+// routerとstoreを同期
 sync(store, router)
 
 // 第二引数のelementをAppでリプレイスする。
-// router.start({
-//   store,
-//   components: { App }
-// }, '#app')
 router.start(App, '#app')

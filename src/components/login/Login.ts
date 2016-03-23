@@ -9,7 +9,8 @@ import Auth from '../auth/Auth'
 require('./Login.css')
 
 @VueComponent({
-  template: require('./Login.html')
+  template: require('./Login.html'),
+  components: { Auth }
 })
 export default class {
 
