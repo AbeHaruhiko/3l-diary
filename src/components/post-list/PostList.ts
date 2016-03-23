@@ -7,6 +7,8 @@ import VueComponent from 'vue-class-component'
 import Navbar from '../navbar/Navbar'
 import Post from '../post-list-item/PostListItem'
 
+var request = require('superagent')
+
 @VueComponent({
   template: require('./PostList.html'),
   components: {
@@ -16,27 +18,37 @@ import Post from '../post-list-item/PostListItem'
 })
 export default class {
 
-  firebaseRef: Firebase
+  API_ENDPOINT: string
+
+  // firebaseRef: Firebase
 
   $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
+  $store
 
   diaries: Object[];
 
   data(): any {
     return {
-      diaries: []
+      diaries: [],
+      API_ENDPOINT: 'http://localhost:8080/api'
     }
   }
 
   created() {
-    this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
-    // const uid = this.firebaseRef.getAuth().uid
-    // console.log('uid: ' + uid)
-    this.firebaseRef.child('posts/' + this.firebaseRef.getAuth().uid)
-    .on('child_added', (post) => {
-      console.log(post.key())
-      console.log(post.val())
-      this.diaries.push(post)
-    })
+    // this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
+    // // const uid = this.firebaseRef.getAuth().uid
+    // // console.log('uid: ' + uid)
+    // this.firebaseRef.child('posts/' + this.firebaseRef.getAuth().uid)
+    // .on('child_added', (post) => {
+    //   console.log(post.key())
+    //   console.log(post.val())
+    //   this.diaries.push(post)
+    // })
+    request
+      .get(this.API_ENDPOINT + "/posts")
+      .set('x-auth-token', this.$store.state.authData.token)
+      .end((err, response) => {
+        
+      })
   }
 }

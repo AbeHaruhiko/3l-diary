@@ -2,6 +2,7 @@
 
 import Vue =  require('vue')
 var Vuex = require('vuex')
+var createLogger = require('vuex/logger')
 
 Vue.use(Vuex)
 
@@ -53,5 +54,6 @@ const mutations = {
 export default new Vuex.Store({
   state,
   mutations,
-  strict: process.env.NODE_ENV === 'dev'
+  strict: process.env.NODE_ENV === 'dev',
+  middlewares: [createLogger]
 })
