@@ -3,15 +3,20 @@
 'use strict'
 
 import VueComponent from 'vue-class-component'
-
+import { API_ENDPOINT } from '../../App'
 import Navbar from '../navbar/Navbar'
+import { setDiaries } from '../../vuex/actions'
 
 var _ = require('lodash')
+var request = require('superagent')
 
 @VueComponent({
   template: require('./Post.html'),
   components: {
     'navbar': Navbar
+  },
+  vuex: { // ここで追加せずに、importしたactionを直接呼び出しても、apply of undifined的なメッセージが出てactionは実行されない。
+    actions: { setDiaries }
   }
 })
 export default class {
@@ -20,6 +25,7 @@ export default class {
 
   $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
   $store
+  setDiaries: Function  // @VueComponentのvuex.actionはクラスのプロパティに設定されるので、thisで参照できるよう宣言。
 
   diary: any
 
@@ -42,7 +48,19 @@ export default class {
     //   })
     // }
     
-    this.diary = _.find(this.$store.state.diaries, { 'id': this.$route.params.post_id })
+    if (this.$store.state.diaries.length > 0) {
+      this.diary = _.find(this.$store.state.diaries, { 'id': this.$route.params.post_id })
+    } else {
+      request
+        .get(API_ENDPOINT + "/posts/" + this.$route.params.post_id)
+        .set('x-auth-token', this.$store.state.authData.token)
+        .end((err, response) => {
+          if (err) {
+            throw err
+          }
+          this.diary = response.body
+        })
+    }
   }
 
   // get createdAt() {

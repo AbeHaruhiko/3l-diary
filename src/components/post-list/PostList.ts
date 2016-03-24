@@ -3,9 +3,8 @@
 'use strict'
 
 import VueComponent from 'vue-class-component'
-
+import { API_ENDPOINT } from '../../App'
 import { setDiaries } from '../../vuex/actions'
-
 import Navbar from '../navbar/Navbar'
 import Post from '../post-list-item/PostListItem'
 
@@ -23,8 +22,6 @@ var request = require('superagent')
 })
 export default class {
 
-  API_ENDPOINT: string
-
   // firebaseRef: Firebase
 
   $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
@@ -33,8 +30,7 @@ export default class {
 
   data(): any {
     return {
-      diaries: [],
-      API_ENDPOINT: 'http://localhost:8080/api'
+      diaries: []
     }
   }
 
@@ -49,9 +45,12 @@ export default class {
     //   this.diaries.push(post)
     // })
     request
-      .get(this.API_ENDPOINT + "/posts")
+      .get(API_ENDPOINT + "/posts")
       .set('x-auth-token', this.$store.state.authData.token)
       .end((err, response) => {
+        if (err) {
+          throw err
+        }
         // this.diaries = response.body
         // this.$store.state.diaries = response.body
         this.setDiaries(response.body)

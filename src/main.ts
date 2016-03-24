@@ -60,18 +60,26 @@ router.map({
 // 認証
 router.beforeEach(function (transition: vuerouter.Transition<any, any, any, any, any>) {
 
-   console.log(transition)
-    if (transition.to["needsAuth"]) {
-        // 認証処理
-        console.log('auth： ' + store.state.authData.token)
-        if (store.state.authData) {
-            transition.next()
-        } else {
-            transition.redirect('/login')
-        }
-    }
-    // qiita これがないとnext()やredirect()で遷移しない（URLだけ書き換わる）
+  console.log(transition)
+  // 認証済みで行き先がloginだったらpostsへ。
+  if (store.state.authData && transition.to.path === '/login') {
+    transition.redirect('/posts')
     return true
+  }
+  
+  
+  if (transition.to["needsAuth"]) {
+      // 認証処理
+      console.log('auth： ' + store.state.authData.token)
+      if (store.state.authData) {
+        transition.next()
+      } else {
+        transition.redirect('/login')
+      }
+      return true
+  }
+  // qiita これがないとnext()やredirect()で遷移しない（URLだけ書き換わる）
+  return true
 })
 
 // routerとstoreを同期

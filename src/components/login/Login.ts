@@ -22,6 +22,7 @@ export default class {
   password: string
 
   $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
+  $store
 
   data(): any {
     return {
@@ -31,7 +32,6 @@ export default class {
   }
 
   created() {
-    // this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
     this.authService = Auth.getInstance()
   }
 

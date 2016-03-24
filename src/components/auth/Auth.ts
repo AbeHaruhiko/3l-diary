@@ -2,6 +2,7 @@
 
 'use strict'
 
+import { LOGIN_ENDPOINT } from '../../App'
 import store from '../../vuex/store'
 import { setAuthData } from '../../vuex/actions'
 var request = require('superagent')
@@ -9,8 +10,6 @@ var request = require('superagent')
 export default class Auth {
 
   // firebaseRef: Firebase
-  private static API_ENDPOINT: string = 'http://localhost:8080/api'
-  private static LOGIN_ENDPOINT: string = 'http://localhost:8080/login'
   
   authData: { username: string, token: string } = { username: '', token: '' }
   
@@ -85,7 +84,7 @@ export default class Auth {
       route.router.go('/posts')
     } else {
       request
-        .post(Auth.LOGIN_ENDPOINT)
+        .post(LOGIN_ENDPOINT)
         .type('form')
         .send({ username: email })
         .send({ password: password })
