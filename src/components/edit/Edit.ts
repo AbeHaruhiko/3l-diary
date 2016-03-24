@@ -17,7 +17,7 @@ import Navbar from '../navbar/Navbar'
 })
 export default class {
 
-  firebaseRef: Firebase
+  // firebaseRef: Firebase
 
   $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
 
@@ -31,17 +31,17 @@ export default class {
   }
 
   created() {
-    this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
+    // this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
   }
 
   save() {
-    const authData: FirebaseAuthData = this.firebaseRef.getAuth()
-    const timestamp = new Date().getTime()
-    const post = this.firebaseRef.child('posts').child(authData.uid).push()
-    post.setWithPriority({
-      content: this.diaryContent,
-      createdAt: timestamp,
-      updatedAt: timestamp
-    }, -(timestamp))  // 降順に取得したいので、priorityをtimestampのマイナス値にセットする。
+    // const authData: FirebaseAuthData = this.firebaseRef.getAuth()
+    // const timestamp = new Date().getTime()
+    // const post = this.firebaseRef.child('posts').child(authData.uid).push()
+    // post.setWithPriority({
+    //   content: this.diaryContent,
+    //   createdAt: timestamp,
+    //   updatedAt: timestamp
+    // }, -(timestamp))  // 降順に取得したいので、priorityをtimestampのマイナス値にセットする。
   }
 }

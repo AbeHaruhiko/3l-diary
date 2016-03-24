@@ -9,8 +9,6 @@ import { setDiaries } from '../../vuex/actions'
 import Navbar from '../navbar/Navbar'
 import Post from '../post-list-item/PostListItem'
 
-var _ = require('lodash')
-
 var request = require('superagent')
 
 @VueComponent({

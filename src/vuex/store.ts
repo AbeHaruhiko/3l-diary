@@ -2,16 +2,25 @@
 
 import Vue =  require('vue')
 var Vuex = require('vuex')
-var createLogger = require('vuex/logger')
+import middlewares from './middlewares'
 
 Vue.use(Vuex)
 
+export const STORAGE_KEY = '3l-diary-authData'
+
+// const state = {
+//   root: JSON.parse(localStorage.getItem(STORAGE_KEY) || 
+//     `{
+//       "diaries": [],
+//       "authData": {
+//         "username": "",
+//         "token": ""
+//       }
+//     }`)
+// }
 const state = {
-  diaries: [],
-  authData: {
-    username: '',
-    token: ''
-  }
+  authData: JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"),
+  diaries: []
 }
 
 const mutations = {
@@ -59,5 +68,5 @@ export default new Vuex.Store({
   state,
   mutations,
   strict: process.env.NODE_ENV === 'dev',
-  middlewares: [createLogger]
+  middlewares
 })

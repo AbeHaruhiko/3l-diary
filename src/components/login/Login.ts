@@ -3,7 +3,7 @@
 'use strict'
 
 import VueComponent from 'vue-class-component'
-import Firebase = require('firebase')
+// import Firebase = require('firebase')
 import Auth from '../auth/Auth'
 
 require('./Login.css')
@@ -14,7 +14,7 @@ require('./Login.css')
 })
 export default class {
 
-  firebaseRef: Firebase
+  // firebaseRef: Firebase
 
   authService: Auth
 
@@ -31,7 +31,7 @@ export default class {
   }
 
   created() {
-    this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
+    // this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
     this.authService = Auth.getInstance()
   }
 

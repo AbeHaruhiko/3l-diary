@@ -112,26 +112,26 @@ export default class Auth {
     route.router.go('/login')
   }
 
-  getAuthCallback(route): (error: any, authData: FirebaseAuthData) => void {
-    return function authCallback(error: string, authData: FirebaseAuthData): void {
-      if (error) {
-        console.log('Signup Failed!', error)
-      } else {
-        console.log('Authenticated successfully with payload:', authData)
-        route.router.go('/posts')
-      }
-    }
-  }
+  // getAuthCallback(route): (error: any, authData: FirebaseAuthData) => void {
+  //   return function authCallback(error: string, authData: FirebaseAuthData): void {
+  //     if (error) {
+  //       console.log('Signup Failed!', error)
+  //     } else {
+  //       console.log('Authenticated successfully with payload:', authData)
+  //       route.router.go('/posts')
+  //     }
+  //   }
+  // }
 
-  // find a suitable name based on the meta info given by each provider
-  getName(authData: FirebaseAuthData): string {
-    switch (authData.provider) {
-       case 'password':
-         return authData.password.email.replace(/@.*/, '');
-       case 'twitter':
-         return authData.twitter.displayName;
-       case 'facebook':
-         return authData.facebook.displayName;
-    }
-  }
+  // // find a suitable name based on the meta info given by each provider
+  // getName(authData: FirebaseAuthData): string {
+  //   switch (authData.provider) {
+  //      case 'password':
+  //        return authData.password.email.replace(/@.*/, '');
+  //      case 'twitter':
+  //        return authData.twitter.displayName;
+  //      case 'facebook':
+  //        return authData.facebook.displayName;
+  //   }
+  // }
 }
