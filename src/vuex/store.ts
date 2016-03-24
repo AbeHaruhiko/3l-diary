@@ -7,7 +7,7 @@ var createLogger = require('vuex/logger')
 Vue.use(Vuex)
 
 const state = {
-  todos: JSON.parse('[]'),
+  diaries: [],
   authData: {
     username: '',
     token: ''
@@ -19,6 +19,10 @@ const mutations = {
   SET_AUTH_DATA (state, username, token) {
     state.authData.username = username
     state.authData.token = token
+  },
+  
+  SET_DIARIES (state, diaries: { id: string, body: string, username: string, createdAt: string, updatedAt: string }[]) {
+    state.diaries = diaries
   },
   
   ADD_TODO (state, text) {

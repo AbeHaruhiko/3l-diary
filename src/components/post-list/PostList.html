@@ -1,4 +1,4 @@
 <navbar></navbar>
 <div style="margin-top: 80px;">
-<post v-for="diary in diaries" :diary="diary"></post>
+<post v-for="diary in $store.state.diaries" :diary="diary"></post>
 </div>
