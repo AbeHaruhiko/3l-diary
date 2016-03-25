@@ -13,6 +13,6 @@ export default class {
   $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
 
   logout(): void {
-    new Auth().logout(this.$route)
+    Auth.getInstance().logout(this.$route)
   }
 }

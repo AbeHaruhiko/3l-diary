@@ -4,7 +4,7 @@
 
 import { LOGIN_ENDPOINT } from '../../App'
 import store from '../../vuex/store'
-import { setAuthData } from '../../vuex/actions'
+import { clearAuthData, setAuthData } from '../../vuex/actions'
 var request = require('superagent')
 
 export default class Auth {
@@ -107,7 +107,7 @@ export default class Auth {
   }
 
   logout(route): void {
-    // this.firebaseRef.unauth()
+    clearAuthData(store)
     route.router.go('/login')
   }
 
