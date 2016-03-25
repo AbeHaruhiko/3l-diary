@@ -5,7 +5,7 @@ import VueRouter = require('vue-router')
 
 import App from './App'
 import store from './vuex/store'
-var { sync } = require('vuex-router-sync')
+var { syncStoreRouter } = require('vuex-router-sync')
 import { configRouter } from './router-config'
 
 require('bootstrap')
@@ -26,7 +26,7 @@ var router = new VueRouter({
 configRouter(router, store)
 
 // routerとstoreを同期
-sync(store, router)
+syncStoreRouter(store, router)
 
 // 第二引数のelementをAppでリプレイスする。
 router.start(App, '#app')
