@@ -25,7 +25,7 @@
           <li dropdown>
             <a href="#" dropdown-toggle data-toggle="dropdown" role="button">
               <span class="glyphicon glyphicon-user"></span> 
-              <strong>{{ 'ユーザ名（仮）' }}</strong>
+              <strong>{{ $store.state.authData.username }}</strong>
               <span class="glyphicon glyphicon-chevron-down"></span>
             </a>
             <ul class="dropdown-menu">
@@ -33,7 +33,7 @@
                 <div class="navbar-login">
                   <div class="row">
                     <div class="col-lg-12">
-                      <p class="text-left"><strong>{{ 'ユーザ名（仮）' }}</strong></p>
+                      <p class="text-left"><strong>{{ $store.state.authData.username }}</strong></p>
                     </div>
                   </div>
                 </div>
