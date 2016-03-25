@@ -30,6 +30,10 @@ const mutations = {
     state.authData.token = token
   },
   
+  CLEAR_AUTH_DATA (state) {
+    state.authData = {}
+  },
+  
   SET_DIARIES (state, diaries: { id: string, body: string, username: string, createdAt: string, updatedAt: string }[]) {
     state.diaries = diaries
   },

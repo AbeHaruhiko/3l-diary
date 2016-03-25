@@ -62,7 +62,7 @@ router.beforeEach(function (transition: vuerouter.Transition<any, any, any, any,
 
   console.log(transition)
   // 認証済みで行き先がloginだったらpostsへ。
-  if (store.state.authData && transition.to.path === '/login') {
+  if (store.state.authData.token && transition.to.path === '/login') {
     transition.redirect('/posts')
     return true
   }
@@ -71,7 +71,7 @@ router.beforeEach(function (transition: vuerouter.Transition<any, any, any, any,
   if (transition.to["needsAuth"]) {
       // 認証処理
       console.log('auth： ' + store.state.authData.token)
-      if (store.state.authData) {
+      if (store.state.authData.token) {
         transition.next()
       } else {
         transition.redirect('/login')

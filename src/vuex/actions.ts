@@ -1,4 +1,5 @@
 export const setAuthData = makeAction('SET_AUTH_DATA')
+export const clearAuthData = makeAction('CLEAR_AUTH_DATA')
 export const setDiaries = makeAction('SET_DIARIES')
 
 export const addTodo = makeAction('ADD_TODO')

@@ -5,7 +5,7 @@
 import VueComponent from 'vue-class-component'
 import { API_ENDPOINT } from '../../App'
 import Navbar from '../navbar/Navbar'
-import { setDiaries } from '../../vuex/actions'
+import { clearAuthData, setDiaries } from '../../vuex/actions'
 
 var _ = require('lodash')
 var request = require('superagent')
@@ -16,7 +16,7 @@ var request = require('superagent')
     'navbar': Navbar
   },
   vuex: { // ここで追加せずに、importしたactionを直接呼び出しても、apply of undifined的なメッセージが出てactionは実行されない。
-    actions: { setDiaries }
+    actions: { clearAuthData, setDiaries }
   }
 })
 export default class {
@@ -25,6 +25,7 @@ export default class {
 
   $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
   $store
+  clearAuthData: Function  // @VueComponentのvuex.actionはクラスのプロパティに設定されるので、thisで参照できるよう宣言。
   setDiaries: Function  // @VueComponentのvuex.actionはクラスのプロパティに設定されるので、thisで参照できるよう宣言。
 
   diary: any
@@ -56,6 +57,11 @@ export default class {
         .set('x-auth-token', this.$store.state.authData.token)
         .end((err, response) => {
           if (err) {
+            if (err.status === 401) {
+              this.clearAuthData()
+              this.$route.router.go('/login')
+              return
+            }
             throw err
           }
           this.diary = response.body
