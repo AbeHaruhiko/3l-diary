@@ -1,7 +1,32 @@
 <navbar></navbar>
 <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3" style="margin-top: 80px;">
   <div class="panel panel-default">
-    <div class="panel-heading">{{ diary.createdAt }}</div>
+    <div class="panel-heading">
+      <span>{{ diary.createdAt }}</span>
+      <span class="pull-right">
+        <span id="like">
+          <span class="glyphicon glyphicon-heart cursor-pointer" aria-hidden="true"></span>
+        </span>
+        
+        
+        <span class="dropdown" dropdown>
+          <span
+              class="glyphicon glyphicon-option-horizontal cursor-pointer dropdown-toggle"
+              dropdown-toggle data-toggle="dropdown">
+          </span>
+
+          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
+            <li><a>編集する</a></li>
+            <li><a>削除する</a></li>
+          </ul>
+        </span>        
+        
+        
+      </span>
+      
+      
+      
+    </div>
     <div class="panel-body">{{ diary.body }}</div>
   </div>
 </div>
