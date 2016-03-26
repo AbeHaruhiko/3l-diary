@@ -29,6 +29,7 @@ export default class {
   setDiaries: Function  // @VueComponentのvuex.actionはクラスのプロパティに設定されるので、thisで参照できるよう宣言。
 
   diary: any
+  diaryUrl: string
 
   data(): any {
     return {
@@ -38,22 +39,14 @@ export default class {
   }
 
   created() {
-    // this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
-    // const authData: FirebaseAuthData = this.firebaseRef.getAuth()
-    // if (authData) {
-    //   this.firebaseRef.child('posts').child(authData.uid).child(this.$route.params.post_id).once('value')
-    //   .then((diary) => {
-    //     this.diary = diary
-    //     console.log(this.diary)
-    //     console.log(this.diary.val())
-    //   })
-    // }
+
+    this.diaryUrl = API_ENDPOINT + "/posts/" + this.$route.params.post_id
     
     if (this.$store.state.diaries.length > 0) {
       this.diary = _.find(this.$store.state.diaries, { 'id': this.$route.params.post_id })
     } else {
       request
-        .get(API_ENDPOINT + "/posts/" + this.$route.params.post_id)
+        .get(this.diaryUrl)
         .set('x-auth-token', this.$store.state.authData.token)
         .end((err, response) => {
           if (err) {
@@ -68,20 +61,25 @@ export default class {
         })
     }
   }
-
-  // get createdAt() {
-  //   if (this.diary.val) {
-  //     return this.diary.val().createdAt
-  //   } else {
-  //     return ''
-  //   }
-  // }
-
-  // get content() {
-  //   if (this.diary.val) {
-  //     return this.diary.val().content
-  //   } else {
-  //     return ''
-  //   }
-  // }
+  
+  edit() {
+    this.$route.router.go('/edit')
+  }
+  
+  delete() {
+    request
+      .delete(this.diaryUrl)
+      .set('x-auth-token', this.$store.state.authData.token)
+      .end((err, response) => {
+        if (err) {
+          if (err.status === 401) {
+            this.clearAuthData()
+            this.$route.router.go('/login')
+            return
+          }
+          throw err
+        }
+        console.log(response)
+      })      
+  }
 }
