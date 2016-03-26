@@ -18,7 +18,7 @@ export function configRouter (router, store) {
     '/signup': {
         component: Signup
     },
-    '/post/:post_id': {
+    '/posts/:post_id': {
         name: 'post',
         component: Post
     },

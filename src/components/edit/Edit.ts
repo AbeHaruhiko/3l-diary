@@ -43,5 +43,20 @@ export default class {
     //   createdAt: timestamp,
     //   updatedAt: timestamp
     // }, -(timestamp))  // 降順に取得したいので、priorityをtimestampのマイナス値にセットする。
+
+    // request
+    //   .put(this.diaryUrl)
+    //   .set('x-auth-token', this.$store.state.authData.token)
+    //   .end((err, response) => {
+    //     if (err) {
+    //       if (err.status === 401) {
+    //         this.clearAuthData()
+    //         this.$route.router.go('/login')
+    //         return
+    //       }
+    //       throw err
+    //     }
+    //     console.log(response)
+    //   })      
   }
 }
