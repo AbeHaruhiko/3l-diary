@@ -26,9 +26,13 @@ export function configRouter (router, store) {
         component: PostList,
         needsAuth: true
     },
-    '/edit': {
+    '/edit/:post_id': {
+        name: 'edit',
         component: Edit
     },
+    '/edit': {
+        component: Edit
+    }
   })
 
   // router.redirect({

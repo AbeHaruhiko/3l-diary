@@ -3,16 +3,20 @@
 'use strict'
 
 import VueComponent from 'vue-class-component'
-
-import Auth from '../auth/Auth'
+import { API_ENDPOINT } from '../../App'
 import Navbar from '../navbar/Navbar'
+import { clearAuthData, setDiaries } from '../../vuex/actions'
 
-// require('imports?jQuery=jquery!bootstrap')
+var _ = require('lodash')
+var request = require('superagent')
 
 @VueComponent({
   template: require('./Edit.html'),
   components: {
     'navbar': Navbar
+  },
+  route: {
+    canReuse: false   // 既存編集と新規投稿を行き来するときがあるので。
   }
 })
 export default class {
@@ -20,43 +24,91 @@ export default class {
   // firebaseRef: Firebase
 
   $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
+  $store
+  clearAuthData: Function  // @VueComponentのvuex.actionはクラスのプロパティに設定されるので、thisで参照できるよう宣言。
 
-  templates: string[]
-  diaryContent: string
+  diary: any
+  diaryUrl: string
 
-  data(): { msg: string } {
+  data(): any {
     return {
-      msg: 'Hello World!'
+      diary: {}   // 無いとブラウザリロードでまっしろ
     }
   }
 
+  ready() {
+    console.log('ready')
+  }
+
   created() {
-    // this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
+    // 既存日記の編集でない（＝新規投稿）場合
+    if (!this.$route.params.post_id) {
+      return
+    }
+    
+    this.diaryUrl = API_ENDPOINT + "/posts/" + this.$route.params.post_id
+    
+    if (this.$store.state.diaries.length > 0) {
+      this.diary = _.find(this.$store.state.diaries, { 'id': this.$route.params.post_id })
+    } else {
+      request
+        .get(this.diaryUrl)
+        .set('x-auth-token', this.$store.state.authData.token)
+        .end((err, response) => {
+          if (err) {
+            if (err.status === 401) {
+              this.clearAuthData()
+              this.$route.router.go('/login')
+              return
+            }
+            throw err
+          }
+          this.diary = response.body
+        })
+    }
   }
 
   save() {
-    // const authData: FirebaseAuthData = this.firebaseRef.getAuth()
-    // const timestamp = new Date().getTime()
-    // const post = this.firebaseRef.child('posts').child(authData.uid).push()
-    // post.setWithPriority({
-    //   content: this.diaryContent,
-    //   createdAt: timestamp,
-    //   updatedAt: timestamp
-    // }, -(timestamp))  // 降順に取得したいので、priorityをtimestampのマイナス値にセットする。
-
-    // request
-    //   .put(this.diaryUrl)
-    //   .set('x-auth-token', this.$store.state.authData.token)
-    //   .end((err, response) => {
-    //     if (err) {
-    //       if (err.status === 401) {
-    //         this.clearAuthData()
-    //         this.$route.router.go('/login')
-    //         return
-    //       }
-    //       throw err
-    //     }
-    //     console.log(response)
-    //   })      
+    // 既存日記の編集でない（＝新規投稿）場合
+    if (!this.$route.params.post_id) {
+      request
+        .post(API_ENDPOINT + "/posts")
+        .set('x-auth-token', this.$store.state.authData.token)
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/json')
+        .send({ body: this.diary.body })
+        .send({ username: this.$store.state.authData.username })
+        .end((err, response) => {
+          if (err) {
+            if (err.status === 401) {
+              this.clearAuthData()
+              this.$route.router.go('/login')
+              return
+            }
+            throw err
+          }
+          console.log(response)
+        })      
+    } else {
+      request
+        .put(this.diaryUrl)
+        .set('x-auth-token', this.$store.state.authData.token)
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/json')
+        .send({ body: this.diary.body })
+        .send({ createdAt: this.diary.createdAt })
+        .send({ username: this.$store.state.authData.username })
+        .end((err, response) => {
+          if (err) {
+            if (err.status === 401) {
+              this.clearAuthData()
+              this.$route.router.go('/login')
+              return
+            }
+            throw err
+          }
+          console.log(response)
+        })      
+      }
   }
 }

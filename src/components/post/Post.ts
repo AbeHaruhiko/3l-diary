@@ -26,15 +26,13 @@ export default class {
   $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
   $store
   clearAuthData: Function  // @VueComponentのvuex.actionはクラスのプロパティに設定されるので、thisで参照できるよう宣言。
-  setDiaries: Function  // @VueComponentのvuex.actionはクラスのプロパティに設定されるので、thisで参照できるよう宣言。
 
   diary: any
   diaryUrl: string
 
   data(): any {
     return {
-      msg: 'Hello World!',
-      diary: {}
+      diary: {}   // 無いとブラウザリロードでまっしろになる。
     }
   }
 
