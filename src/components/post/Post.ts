@@ -78,6 +78,7 @@ export default class {
           throw err
         }
         console.log(response)
+        this.$route.router.go('/posts')
       })      
   }
 }

@@ -88,6 +88,7 @@ export default class {
             throw err
           }
           console.log(response)
+          this.$route.router.go('/posts')
         })      
     } else {
       request
@@ -108,6 +109,7 @@ export default class {
             throw err
           }
           console.log(response)
+          this.$route.router.go('/posts')
         })      
       }
   }
