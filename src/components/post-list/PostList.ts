@@ -48,6 +48,8 @@ export default class {
     request
       .get(API_ENDPOINT + "/posts")
       .set('x-auth-token', this.$store.state.authData.token)
+      .query({ page: 0 })
+      .query({ size: 4 })
       .end((err, response) => {
         if (err) {
           if (err.status === 401) {
@@ -59,7 +61,8 @@ export default class {
         }
         // this.diaries = response.body
         // this.$store.state.diaries = response.body
-        this.setDiaries(response.body)
+        console.log(response.body)
+        this.setDiaries(response.body.content)
         // _(response.body).forEach((diary) => {
           
         // })
