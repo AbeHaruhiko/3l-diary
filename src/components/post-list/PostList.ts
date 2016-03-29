@@ -20,7 +20,10 @@ var request = require('superagent')
   },
   vuex: { // ここで追加せずに、importしたactionを直接呼び出しても、apply of undifined的なメッセージが出てactionは実行されない。import, annotation, field, callの4箇所必要！
     actions: { clearAuthData, setDiaries }
-  }
+  },
+  route: {
+    canReuse: false   // 既存編集と新規投稿を行き来するときがあるので。
+  },
 })
 export default class {
 
@@ -50,8 +53,8 @@ export default class {
     request
       .get(API_ENDPOINT + "/posts")
       .set('x-auth-token', this.$store.state.authData.token)
-      .query({ page: 0 })
-      .query({ size: PAGE_SIZE })
+      .query({ page: this.$route.query.page || 0 })
+      .query({ size: this.$route.query.size || PAGE_SIZE })
       .end((err, response) => {
         if (err) {
           if (err.status === 401) {

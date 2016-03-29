@@ -20,6 +20,20 @@ export default class {
     clearAuthData: Function
     setDiaries: Function
     
+    MAX_PAGINATION_COUNT: number    // ページネーションは8個
+    MAX_PAGINATION_INDEX: number
+    BACKWORD_PAGINATION_COUNT: number   // 戻る方向のページネーションの数
+    FORWORD_PAGINATION_COUNT: number    // 進む方向のページネーションの数
+
+    data () {
+      return {
+        MAX_PAGINATION_COUNT: 8,    // ページネーションは8個
+        MAX_PAGINATION_INDEX: 7,
+        BACKWORD_PAGINATION_COUNT: 4,   // 戻る方向のページネーションの数
+        FORWORD_PAGINATION_COUNT: 3    // 進む方向のページネーションの数
+      }
+    }
+
     created() {
       // const totalPages = this.$store.state.diaries.totalPages
       // const totalElements = this.$store.state.diaries.totalElements
@@ -65,31 +79,52 @@ export default class {
     }
     
     get headOfPagination() {
-      return Math.max(0, this.currentPageNumber - 4) 
+      // ページ数が少ないとき用（8ページ以下の時は常に1～totalPagesを表示）
+      if (this.totalPages <= this.MAX_PAGINATION_COUNT) {
+        return 0
+      }
+      // 現在ページが末尾に近い時にページリストが短くならないように
+      if (this.currentPageNumber - this.BACKWORD_PAGINATION_COUNT >= this.totalPages - this.MAX_PAGINATION_INDEX) {
+        return this.totalPages - this.MAX_PAGINATION_INDEX
+      }
+      return Math.max(0, this.currentPageNumber - this.BACKWORD_PAGINATION_COUNT) 
     }
     
     get tailOfPagination() {
-      return Math.min(this.totalPages - 1, this.currentPageNumber + 3) 
+      // ページ数が少ないとき用（8ページ以下の時は常に1～totalPagesを表示）
+      if (this.totalPages <= this.MAX_PAGINATION_COUNT) {
+        return this.totalPages - 1
+      }
+      // 現在ページが若い時にページリストが短くならないように
+      if (this.currentPageNumber + this.FORWORD_PAGINATION_COUNT <= this.MAX_PAGINATION_INDEX) {
+        return this.MAX_PAGINATION_INDEX
+      }
+      return Math.min(this.totalPages - 1, this.currentPageNumber + this.FORWORD_PAGINATION_COUNT) 
     }
     
-    fetchDiaries(page: number, size: number = PAGE_SIZE) {
-      request
-      .get(API_ENDPOINT + "/posts")
-      .set('x-auth-token', this.$store.state.authData.token)
-      .query({ page: page })
-      .query({ size: size })
-      .end((err, response) => {
-        if (err) {
-          if (err.status === 401) {
-            this.clearAuthData()
-            this.$route.router.go('/login')
-            return
-          }
-          throw err
-        }
-        console.log(response.body)
-        this.setDiaries(response.body)
-      })
+    // fetchDiaries(page: number, size: number = PAGE_SIZE) {
+    //   request
+    //   .get(API_ENDPOINT + "/posts")
+    //   .set('x-auth-token', this.$store.state.authData.token)
+    //   .query({ page: page })
+    //   .query({ size: size })
+    //   .end((err, response) => {
+    //     if (err) {
+    //       if (err.status === 401) {
+    //         this.clearAuthData()
+    //         this.$route.router.go('/login')
+    //         return
+    //       }
+    //       throw err
+    //     }
+    //     console.log(response.body)
+    //     this.setDiaries(response.body)
+    //     this.$route.router.go({ path: '/posts', query: { page: page } })
+    //   })
 
+    // }
+    
+    isCurrentPage(pageNumber: number) {
+      return pageNumber === this.currentPageNumber
     }
 }
