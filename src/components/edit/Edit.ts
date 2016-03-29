@@ -5,7 +5,7 @@
 import VueComponent from 'vue-class-component'
 import { API_ENDPOINT } from '../../App'
 import Navbar from '../navbar/Navbar'
-import { clearAuthData, setDiaries } from '../../vuex/actions'
+import { clearAuthData } from '../../vuex/actions'
 
 var _ = require('lodash')
 var request = require('superagent')
@@ -17,6 +17,9 @@ var request = require('superagent')
   },
   route: {
     canReuse: false   // 既存編集と新規投稿を行き来するときがあるので。
+  },
+  vuex: { // ここで追加せずに、importしたactionを直接呼び出しても、apply of undifined的なメッセージが出てactionは実行されない。
+    actions: { clearAuthData }
   }
 })
 export default class {

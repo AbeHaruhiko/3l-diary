@@ -20,7 +20,7 @@ export const STORAGE_KEY = '3l-diary-authData'
 // }
 const state = {
   authData: JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"),
-  diaries: []
+  diaries: {}
 }
 
 const mutations = {

@@ -38,6 +38,7 @@
         "./src/components/Hello.ts",
         "./src/components/login/Login.ts",
         "./src/components/navbar/Navbar.ts",
+        "./src/components/pagination/Pagination.ts",
         "./src/components/post-list-item/PostListItem.ts",
         "./src/components/post-list/PostList.ts",
         "./src/components/post/Post.ts",

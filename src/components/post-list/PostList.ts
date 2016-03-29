@@ -3,9 +3,10 @@
 'use strict'
 
 import VueComponent from 'vue-class-component'
-import { API_ENDPOINT } from '../../App'
+import { API_ENDPOINT, PAGE_SIZE } from '../../App'
 import { clearAuthData, setDiaries } from '../../vuex/actions'
 import Navbar from '../navbar/Navbar'
+import Pagination from '../pagination/Pagination'
 import Post from '../post-list-item/PostListItem'
 
 var request = require('superagent')
@@ -14,9 +15,10 @@ var request = require('superagent')
   template: require('./PostList.html'),
   components: {
     'post': Post,
-    'navbar': Navbar
+    'navbar': Navbar,
+    'pagination': Pagination
   },
-  vuex: { // ここで追加せずに、importしたactionを直接呼び出しても、apply of undifined的なメッセージが出てactionは実行されない。
+  vuex: { // ここで追加せずに、importしたactionを直接呼び出しても、apply of undifined的なメッセージが出てactionは実行されない。import, annotation, field, callの4箇所必要！
     actions: { clearAuthData, setDiaries }
   }
 })
@@ -49,7 +51,7 @@ export default class {
       .get(API_ENDPOINT + "/posts")
       .set('x-auth-token', this.$store.state.authData.token)
       .query({ page: 0 })
-      .query({ size: 4 })
+      .query({ size: PAGE_SIZE })
       .end((err, response) => {
         if (err) {
           if (err.status === 401) {
@@ -62,7 +64,7 @@ export default class {
         // this.diaries = response.body
         // this.$store.state.diaries = response.body
         console.log(response.body)
-        this.setDiaries(response.body.content)
+        this.setDiaries(response.body)
         // _(response.body).forEach((diary) => {
           
         // })

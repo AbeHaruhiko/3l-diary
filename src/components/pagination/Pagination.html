@@ -1,0 +1,25 @@
+<nav>
+  <ul class="pagination">
+    <li :class="prevButtonState">
+      <a href="#" aria-label="First">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li :class="prevButtonState">
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&lt;</span>
+      </a>
+    </li>
+    <li v-for="n in tailOfPagination - headOfPagination + 1"><a @click.stop.prevent="fetchDiaries(n)">{{ n + headOfPagination + 1 }}</a></li>
+    <li :class="nextButtonState">
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&gt;</span>
+      </a>
+    </li>
+    <li :class="nextButtonState">
+      <a href="#" aria-label="Last">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
