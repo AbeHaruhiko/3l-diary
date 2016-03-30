@@ -20,18 +20,25 @@ export function configRouter (router, store) {
     },
     '/posts/:post_id': {
         name: 'post',
-        component: Post
+        component: Post,
+        needsAuth: true
     },
     '/posts': {
         component: PostList,
         needsAuth: true
     },
+    '/posts/search': {
+        component: PostList,
+        needsAuth: true
+    },
     '/edit/:post_id': {
         name: 'edit',
-        component: Edit
+        component: Edit,
+        needsAuth: true
     },
     '/edit': {
-        component: Edit
+        component: Edit,
+        needsAuth: true
     }
   })
 
