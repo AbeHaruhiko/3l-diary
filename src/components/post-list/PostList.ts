@@ -41,36 +41,46 @@ export default class {
   }
 
   created() {
-    // this.firebaseRef = new Firebase('https://3l-diary.firebaseio.com/')
-    // // const uid = this.firebaseRef.getAuth().uid
-    // // console.log('uid: ' + uid)
-    // this.firebaseRef.child('posts/' + this.firebaseRef.getAuth().uid)
-    // .on('child_added', (post) => {
-    //   console.log(post.key())
-    //   console.log(post.val())
-    //   this.diaries.push(post)
-    // })
-    request
-      .get(API_ENDPOINT + "/posts")
-      .set('x-auth-token', this.$store.state.authData.token)
-      .query({ page: this.$route.query.page || 0 })
-      .query({ size: this.$route.query.size || PAGE_SIZE })
-      .end((err, response) => {
-        if (err) {
-          if (err.status === 401) {
-            this.clearAuthData()
-            this.$route.router.go('/login')
-            return
+
+    if (this.$route.query.q) {
+      
+      request
+        .get(API_ENDPOINT + "/posts")
+        .set('x-auth-token', this.$store.state.authData.token)
+        .query({ page: this.$route.query.page || 0 })
+        .query({ size: this.$route.query.size || PAGE_SIZE })
+        .query({ q: this.$route.query.q })
+        .end((err, response) => {
+          if (err) {
+            if (err.status === 401) {
+              this.clearAuthData()
+              this.$route.router.go('/login')
+              return
+            }
+            throw err
           }
-          throw err
-        }
-        // this.diaries = response.body
-        // this.$store.state.diaries = response.body
-        console.log(response.body)
-        this.setDiaries(response.body)
-        // _(response.body).forEach((diary) => {
-          
-        // })
-      })
+          console.log(response.body)
+          this.setDiaries(response.body)
+        })
+    } else {
+      
+      request
+        .get(API_ENDPOINT + "/posts")
+        .set('x-auth-token', this.$store.state.authData.token)
+        .query({ page: this.$route.query.page || 0 })
+        .query({ size: this.$route.query.size || PAGE_SIZE })
+        .end((err, response) => {
+          if (err) {
+            if (err.status === 401) {
+              this.clearAuthData()
+              this.$route.router.go('/login')
+              return
+            }
+            throw err
+          }
+          console.log(response.body)
+          this.setDiaries(response.body)
+        })
+    }
   }
 }

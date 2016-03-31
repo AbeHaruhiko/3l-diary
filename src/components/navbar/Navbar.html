@@ -18,7 +18,7 @@
             <div class="input-group">
               <input type="text" class="form-control" placeholder="キーワード検索" v-model="searchKeyword">
               <span class="input-group-btn">
-                <button class="btn btn-default" type="button" v-link="{ path: '/posts/search', query: { q: searchKeyword }}"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                <a class="btn btn-default" type="button" v-link="{ path: '/posts', query: { q: searchKeyword }}"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
               </span>
             </div>
           </form>
