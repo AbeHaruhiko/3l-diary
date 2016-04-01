@@ -42,6 +42,7 @@
         "./src/components/post-list-item/PostListItem.ts",
         "./src/components/post-list/PostList.ts",
         "./src/components/post/Post.ts",
+        "./src/components/settings/template-edit/TemplateEdit.ts",
         "./src/components/signup/Signup.ts",
         "./src/main.ts"
     ],
