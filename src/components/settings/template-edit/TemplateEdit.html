@@ -1,0 +1,38 @@
+<navbar></navbar>
+<div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3" style="margin-top: 80px;">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <form name="formWrite">
+        <fieldset>
+          <div class="form-group">
+            <div class="form-group">
+              <textarea
+                v-model="template.item1"
+                name="body"
+                class="form-control"
+                rows="2"
+                placeholder="質問１ 例.「今日いちばん失敗したこと」" required>
+              </textarea>
+              <textarea
+                v-model="template.item2"
+                name="body"
+                class="form-control"
+                rows="2"
+                placeholder="質問２ 例.「今日いちばん感動したこと」" required>
+              </textarea>
+              <textarea
+                v-model="template.item3"
+                name="body"
+                class="form-control"
+                rows="2"
+                placeholder="質問３ 例.「明日の目標」" required>
+              </textarea>
+            </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-primary pull-right btn-outline" @click.stop.prevent="save"><span class="glyphicon glyphicon-send"> 送信</span></button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</div>
