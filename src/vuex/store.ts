@@ -20,7 +20,8 @@ export const STORAGE_KEY = '3l-diary-authData'
 // }
 const state = {
   authData: JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"),
-  diaries: {}
+  diaries: {},
+  pastDiary: {}
 }
 
 const mutations = {
@@ -36,6 +37,10 @@ const mutations = {
   
   SET_DIARIES (state, diaries: { id: string, body: string, username: string, createdAt: string, updatedAt: string }[]) {
     state.diaries = diaries
+  },
+  
+  SET_PAST_DIARIES (state, diary: { id: string, body: string, username: string, createdAt: string, updatedAt: string }) {
+    state.pastDiary = diary
   },
   
   ADD_TODO (state, text) {

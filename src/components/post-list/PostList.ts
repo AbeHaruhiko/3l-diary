@@ -10,6 +10,7 @@ import Pagination from '../pagination/Pagination'
 import Post from '../post-list-item/PostListItem'
 
 var request = require('superagent')
+import * as axios from 'axios';   // d.tsがあるとimportで書ける。ないと var axios = require('axios')
 
 @VueComponent({
   template: require('./PostList.html'),
@@ -82,5 +83,18 @@ export default class {
           this.setDiaries(response.body)
         })
     }
+    
+    // 過去の日記の取得
+    var axiosInstance = axios.create({
+      baseURL: API_ENDPOINT,
+      headers: { 'x-auth-token': this.$store.state.authData.token }
+    });
+    axiosInstance.get('/posts/past')
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((response) => {
+        console.log(response.data);
+      })
   }
 }
