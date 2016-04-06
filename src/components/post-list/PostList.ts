@@ -4,7 +4,7 @@
 
 import VueComponent from 'vue-class-component'
 import { API_ENDPOINT, PAGE_SIZE } from '../../App'
-import { clearAuthData, setDiaries } from '../../vuex/actions'
+import { clearAuthData, setDiaries, setPastDiaries } from '../../vuex/actions'
 import Navbar from '../navbar/Navbar'
 import Pagination from '../pagination/Pagination'
 import PostListItem from '../post-list-item/PostListItem'
@@ -20,7 +20,7 @@ import * as axios from 'axios';   // d.tsがあるとimportで書ける。ない
     'pagination': Pagination
   },
   vuex: { // ここで追加せずに、importしたactionを直接呼び出しても、apply of undifined的なメッセージが出てactionは実行されない。import, annotation, field, callの4箇所必要！
-    actions: { clearAuthData, setDiaries }
+    actions: { clearAuthData, setDiaries, setPastDiaries }
   },
   route: {
     canReuse: false   // 既存編集と新規投稿を行き来するときがあるので。
@@ -34,6 +34,7 @@ export default class {
   $store
   clearAuthData: Function  // @VueComponentのvuex.actionはクラスのプロパティに設定されるので、thisで参照できるよう宣言。
   setDiaries: Function  // @VueComponentのvuex.actionはクラスのプロパティに設定されるので、thisで参照できるよう宣言。
+  setPastDiaries: Function  // @VueComponentのvuex.actionはクラスのプロパティに設定されるので、thisで参照できるよう宣言。
 
   data(): any {
     return {
@@ -92,6 +93,7 @@ export default class {
     axiosInstance.get('/posts/past')
       .then((response) => {
         console.log(response.data);
+        this.setPastDiaries(response.data)
       })
       .catch((response) => {
         console.log(response.data);

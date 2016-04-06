@@ -1,5 +1,6 @@
 <navbar></navbar>
 <div style="margin-top: 80px;">
+<post :diary="$store.state.pastDiary.content"></post>
 <post v-for="diary in $store.state.diaries.content" :diary="diary"></post>
 </div>
 <div class="clearfix"></div>
