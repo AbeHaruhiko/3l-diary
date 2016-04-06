@@ -7,7 +7,7 @@ import { API_ENDPOINT, PAGE_SIZE } from '../../App'
 import { clearAuthData, setDiaries } from '../../vuex/actions'
 import Navbar from '../navbar/Navbar'
 import Pagination from '../pagination/Pagination'
-import Post from '../post-list-item/PostListItem'
+import PostListItem from '../post-list-item/PostListItem'
 
 var request = require('superagent')
 import * as axios from 'axios';   // d.tsがあるとimportで書ける。ないと var axios = require('axios')
@@ -15,7 +15,7 @@ import * as axios from 'axios';   // d.tsがあるとimportで書ける。ない
 @VueComponent({
   template: require('./PostList.html'),
   components: {
-    'post': Post,
+    'post': PostListItem,
     'navbar': Navbar,
     'pagination': Pagination
   },
