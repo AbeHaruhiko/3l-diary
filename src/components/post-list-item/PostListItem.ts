@@ -4,12 +4,16 @@
 
 import VueComponent from 'vue-class-component'
 
-// require('imports?jQuery=jquery!bootstrap')
+var moment = require('moment')
+moment.locale('ja')
+
+require('./PostListItem.css')
 
 @VueComponent({
   template: require('./PostListItem.html'),
   props: {
-    diary: {}
+    diary: {},
+    postType: {}
   }
 })
 export default class {
@@ -19,8 +23,8 @@ export default class {
   // $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
   // $state
 
-  // // props内のオブジェクトにアクセスしたいときは、クラスのプロパティとして定義して、thisでアクセス。
-  // diary: any
+  // props内のオブジェクトにアクセスしたいときは、クラスのプロパティとして定義して、thisでアクセス。
+  diary: any
 
   // data(): any {
   //   return {
@@ -37,4 +41,13 @@ export default class {
   // get postId(): string {
   //   return this.diary.key()
   // }
-}
+  
+    get daysAgo(): string {
+      if (!this.diary) {
+        return ''
+      }
+      const daysAgo = moment(this.diary.createdAt).fromNow();
+      console.log(daysAgo)
+      return daysAgo
+    }
+  }

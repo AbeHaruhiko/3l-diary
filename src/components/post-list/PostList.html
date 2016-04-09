@@ -1,6 +1,6 @@
 <navbar></navbar>
 <div style="margin-top: 80px;">
-<post :diary="$store.state.pastDiary.content"></post>
+<post v-if="$store.state.pastDiary.content" :diary="$store.state.pastDiary.content[0]" post-type="past"></post>
 <post v-for="diary in $store.state.diaries.content" :diary="diary"></post>
 </div>
 <div class="clearfix"></div>
