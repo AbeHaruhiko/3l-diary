@@ -3,7 +3,7 @@
 'use strict'
 
 import VueComponent from 'vue-class-component'
-import { API_ENDPOINT } from '../../App'
+import { API_ENDPOINT, URL_PATH_POSTS } from '../../App'
 import Navbar from '../navbar/Navbar'
 import { clearAuthData } from '../../vuex/actions'
 
@@ -78,7 +78,7 @@ export default class {
           throw err
         }
         console.log(response)
-        this.$route.router.go('/posts')
+        this.$route.router.go(URL_PATH_POSTS)
       })      
   }
 }

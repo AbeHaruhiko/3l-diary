@@ -3,7 +3,7 @@
 'use strict'
 
 import VueComponent from 'vue-class-component'
-import { API_ENDPOINT, PAGE_SIZE } from '../../App'
+import { API_ENDPOINT, URL_PATH_POSTS, PAGE_SIZE } from '../../App'
 import { clearAuthData, setDiaries } from '../../vuex/actions'
 
 var request = require('superagent')
@@ -119,7 +119,7 @@ export default class {
     //     }
     //     console.log(response.body)
     //     this.setDiaries(response.body)
-    //     this.$route.router.go({ path: '/posts', query: { page: page } })
+    //     this.$route.router.go({ path: URL_PATH_POSTS, query: { page: page } })
     //   })
 
     // }

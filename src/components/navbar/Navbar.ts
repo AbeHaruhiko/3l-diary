@@ -4,6 +4,7 @@
 
 import VueComponent from 'vue-class-component'
 import Auth from '../auth/Auth'
+import { URL_PATH_POSTS } from '../../App'
 
 @VueComponent({
   template: require('./Navbar.html'),

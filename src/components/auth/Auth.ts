@@ -2,7 +2,7 @@
 
 'use strict'
 
-import { LOGIN_ENDPOINT } from '../../App'
+import { LOGIN_ENDPOINT, URL_PATH_POSTS } from '../../App'
 import store from '../../vuex/store'
 import { clearAuthData, setAuthData } from '../../vuex/actions'
 var request = require('superagent')
@@ -81,7 +81,7 @@ export default class Auth {
     
     if (store.state.authData && store.state.authData.token) {
       // 認証済みのため一覧へ
-      route.router.go('/posts')
+      route.router.go(URL_PATH_POSTS)
     } else {
       request
         .post(LOGIN_ENDPOINT)
@@ -97,7 +97,7 @@ export default class Auth {
           // store.state.authData.token = res.header['x-auth-token']
           setAuthData(store, email, res.header['x-auth-token'])
           console.log('Authenticated successfully with payload:', store.state.authData)
-          route.router.go('/posts')
+          route.router.go(URL_PATH_POSTS)
         });
     }
   }
@@ -117,7 +117,7 @@ export default class Auth {
   //       console.log('Signup Failed!', error)
   //     } else {
   //       console.log('Authenticated successfully with payload:', authData)
-  //       route.router.go('/posts')
+  //       route.router.go(URL_PATH_POSTS)
   //     }
   //   }
   // }

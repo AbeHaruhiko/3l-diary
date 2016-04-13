@@ -1,17 +1,17 @@
-/// <reference path='../../../../typings/browser.d.ts' />
+/// <reference path='../../../../../typings/browser.d.ts' />
 
 'use strict'
 
 import VueComponent from 'vue-class-component'
-import { API_ENDPOINT } from '../../../App'
-import Navbar from '../../navbar/Navbar'
-import { clearAuthData } from '../../../vuex/actions'
+import { API_ENDPOINT, URL_PATH_TEMPLATES } from '../../../../App'
+import Navbar from '../../../navbar/Navbar'
+import { clearAuthData } from '../../../../vuex/actions'
 
 var _ = require('lodash')
 var request = require('superagent')
 
 @VueComponent({
-  template: require('./Edit.html'),
+  template: require('./TemplateEdit.html'),
   components: {
     'navbar': Navbar
   },
@@ -30,12 +30,12 @@ export default class {
   $store
   clearAuthData: Function  // @VueComponentのvuex.actionはクラスのプロパティに設定されるので、thisで参照できるよう宣言。
 
-  diary: any
-  diaryUrl: string
+  diaryTemplate: any
+  diaryTemplateUrl: string
 
   data(): any {
     return {
-      diary: {}   // 無いとブラウザリロードでまっしろ
+      diaryTemplate: {}   // 無いとブラウザリロードでまっしろ
     }
   }
 
@@ -44,18 +44,18 @@ export default class {
   }
 
   created() {
-    // 既存日記の編集でない（＝新規投稿）場合
-    if (!this.$route.params.post_id) {
+    // 既存テンプレートの編集でない（＝新規作成）場合
+    if (!this.$route.params.template_id) {
       return
     }
     
-    this.diaryUrl = API_ENDPOINT + "/posts/" + this.$route.params.post_id
+    this.diaryTemplateUrl = API_ENDPOINT + URL_PATH_TEMPLATES + this.$route.params.template_id
     
-    if (this.$store.state.diaries.length > 0) {
-      this.diary = _.find(this.$store.state.diaries, { 'id': this.$route.params.post_id })
+    if (this.$store.state.templates.length > 0) {
+      this.diaryTemplate = _.find(this.$store.state.templates, { 'id': this.$route.params.template_id })
     } else {
       request
-        .get(this.diaryUrl)
+        .get(this.diaryTemplateUrl)
         .set('x-auth-token', this.$store.state.authData.token)
         .end((err, response) => {
           if (err) {
@@ -66,20 +66,20 @@ export default class {
             }
             throw err
           }
-          this.diary = response.body
+          this.diaryTemplate = response.body
         })
     }
   }
 
   save() {
-    // 既存日記の編集でない（＝新規投稿）場合
-    if (!this.$route.params.post_id) {
+    // 既存テンプレートの編集でない（＝新規作成）場合
+    if (!this.$route.params.template_id) {
       request
-        .post(API_ENDPOINT + "/posts")
+        .post(API_ENDPOINT + URL_PATH_TEMPLATES)
         .set('x-auth-token', this.$store.state.authData.token)
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
-        .send({ body: this.diary.body })
+        .send({ body: this.diaryTemplate.body })
         .send({ username: this.$store.state.authData.username })
         .end((err, response) => {
           if (err) {
@@ -91,16 +91,16 @@ export default class {
             throw err
           }
           console.log(response)
-          this.$route.router.go('/posts')
+          this.$route.router.go(URL_PATH_TEMPLATES)
         })      
     } else {
       request
-        .put(this.diaryUrl)
+        .put(this.diaryTemplateUrl)
         .set('x-auth-token', this.$store.state.authData.token)
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
-        .send({ body: this.diary.body })
-        .send({ createdAt: this.diary.createdAt })
+        .send({ body: this.diaryTemplate.body })
+        .send({ createdAt: this.diaryTemplate.createdAt })
         .send({ username: this.$store.state.authData.username })
         .end((err, response) => {
           if (err) {
@@ -112,7 +112,7 @@ export default class {
             throw err
           }
           console.log(response)
-          this.$route.router.go('/posts')
+          this.$route.router.go(URL_PATH_TEMPLATES)
         })      
       }
   }

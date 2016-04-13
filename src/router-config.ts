@@ -4,6 +4,8 @@ import Login from './components/login/Login'
 import Edit from './components/edit/Edit'
 import Post from './components/post/Post'
 import PostList from './components/post-list/PostList'
+import TemplateEdit from './components/settings/templates/edit/TemplateEdit'
+import { URL_PATH_POSTS } from './App'
 
 export function configRouter (router, store) {
 
@@ -39,6 +41,15 @@ export function configRouter (router, store) {
     '/edit': {
         component: Edit,
         needsAuth: true
+    },
+    '/settings/templates/edit': {
+        component: TemplateEdit,
+        needsAuth: true
+    },
+    '/settings/templates/edit/:template_id': {
+        name: 'template_edit',
+        component: TemplateEdit,
+        needsAuth: true
     }
   })
 
@@ -52,7 +63,7 @@ export function configRouter (router, store) {
     console.log(transition)
     // 認証済みで行き先がloginだったらpostsへ。
     if (store.state.authData.token && transition.to.path === '/login') {
-      transition.redirect('/posts')
+      transition.redirect(URL_PATH_POSTS)
       return true
     }
     
