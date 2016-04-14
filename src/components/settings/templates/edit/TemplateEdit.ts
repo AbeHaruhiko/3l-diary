@@ -79,8 +79,9 @@ export default class {
         .set('x-auth-token', this.$store.state.authData.token)
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
-        .send({ body: this.diaryTemplate.body })
+        .send({ name: this.diaryTemplate.name })
         .send({ username: this.$store.state.authData.username })
+        .send({ templateItems: [ { body: this.diaryTemplate.item1 }, { body: this.diaryTemplate.item2 }, { body: this.diaryTemplate.item2 } ]})
         .end((err, response) => {
           if (err) {
             if (err.status === 401) {
