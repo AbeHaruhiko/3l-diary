@@ -100,7 +100,7 @@ export default class {
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
         .send({ body: this.diary.body })
-        .send({ createdAt: this.diary.createdAt })
+        .send({ createdAt: this.diary.createdAt })  // 更新しないので元の値をセット（ださい）
         .send({ username: this.$store.state.authData.username })
         .end((err, response) => {
           if (err) {
