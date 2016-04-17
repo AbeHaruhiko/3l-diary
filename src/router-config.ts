@@ -4,6 +4,7 @@ import Login from './components/login/Login'
 import Edit from './components/edit/Edit'
 import Post from './components/post/Post'
 import PostList from './components/post-list/PostList'
+import TemplateList from './components/settings/templates/templateList'
 import TemplateEdit from './components/settings/templates/edit/TemplateEdit'
 import { URL_PATH_POSTS } from './App'
 
@@ -40,6 +41,10 @@ export function configRouter (router, store) {
     },
     '/edit': {
         component: Edit,
+        needsAuth: true
+    },
+    '/settings/templates': {
+        component: TemplateList,
         needsAuth: true
     },
     '/settings/templates/edit': {

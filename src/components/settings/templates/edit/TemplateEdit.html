@@ -8,13 +8,13 @@
             <div class="form-group">
               <input type="text" v-model="diaryTemplate.name" class="form-control" placeholder="テンプレートの名前"/>
               <textarea
-                v-model="diaryTemplate.item1"
-                name="body"
+                v-for="templateItem in diaryTemplate.templateItems"
+                v-model="templateItem.body"
                 class="form-control"
                 rows="2"
                 placeholder="質問１ 例.「今日いちばん失敗したこと」" required>
               </textarea>
-              <textarea
+              <!--<textarea
                 v-model="diaryTemplate.item2"
                 name="body"
                 class="form-control"
@@ -27,7 +27,7 @@
                 class="form-control"
                 rows="2"
                 placeholder="質問３ 例.「明日の目標」" required>
-              </textarea>
+              </textarea>-->
             </div>
           <div class="form-group">
             <button type="button" class="btn btn-primary pull-right btn-outline" @click.stop.prevent="save"><span class="glyphicon glyphicon-send"> 送信</span></button>

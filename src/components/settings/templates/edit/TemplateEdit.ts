@@ -35,7 +35,9 @@ export default class {
 
   data(): any {
     return {
-      diaryTemplate: {}   // 無いとブラウザリロードでまっしろ
+      diaryTemplate: {
+        templateItems: [ {}, {}, {} ]
+      }   // 無いとブラウザリロードでまっしろ
     }
   }
 
@@ -49,7 +51,7 @@ export default class {
       return
     }
     
-    this.diaryTemplateUrl = API_ENDPOINT + URL_PATH_TEMPLATES + this.$route.params.template_id
+    this.diaryTemplateUrl = API_ENDPOINT + '/templates/' + this.$route.params.template_id
     
     if (this.$store.state.templates.length > 0) {
       this.diaryTemplate = _.find(this.$store.state.templates, { 'id': this.$route.params.template_id })
@@ -73,15 +75,20 @@ export default class {
 
   save() {
     // 既存テンプレートの編集でない（＝新規作成）場合
+    
+    for (let i = 0; i < this.diaryTemplate.templateItems.length; i++) {
+      this.diaryTemplate.templateItems[i].sequence = i + 1;
+    }
+    
     if (!this.$route.params.template_id) {
       request
-        .post(API_ENDPOINT + URL_PATH_TEMPLATES)
+        .post(API_ENDPOINT + '/templates')
         .set('x-auth-token', this.$store.state.authData.token)
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
         .send({ name: this.diaryTemplate.name })
         .send({ username: this.$store.state.authData.username })
-        .send({ templateItems: [ { body: this.diaryTemplate.item1 }, { body: this.diaryTemplate.item2 }, { body: this.diaryTemplate.item2 } ]})
+        .send({ templateItems: this.diaryTemplate.templateItems })
         .end((err, response) => {
           if (err) {
             if (err.status === 401) {
