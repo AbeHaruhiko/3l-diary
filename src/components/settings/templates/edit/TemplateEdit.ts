@@ -9,6 +9,7 @@ import { clearAuthData } from '../../../../vuex/actions'
 
 var _ = require('lodash')
 var request = require('superagent')
+import * as axios from 'axios';   // d.tsがあるとimportで書ける。ないと var axios = require('axios')
 
 @VueComponent({
   template: require('./TemplateEdit.html'),
@@ -80,44 +81,45 @@ export default class {
       this.diaryTemplate.templateItems[i].sequence = i + 1;
     }
     
+    var axiosInstance = axios.create({
+      baseURL: API_ENDPOINT,
+      headers: {
+        'x-auth-token': this.$store.state.authData.token,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    });
+
     if (!this.$route.params.template_id) {
-      request
-        .post(API_ENDPOINT + '/templates')
-        .set('x-auth-token', this.$store.state.authData.token)
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .send(this.diaryTemplate)
-        .end((err, response) => {
-          if (err) {
-            if (err.status === 401) {
-              this.clearAuthData()
-              this.$route.router.go('/login')
-              return
-            }
-            throw err
-          }
-          console.log(response)
+
+      axiosInstance.post('/templates', this.diaryTemplate)
+        .then((response) => {
+          console.log(response.data);
           this.$route.router.go(URL_PATH_TEMPLATES)
-        })      
+        })
+        .catch((response) => {
+          console.log(response.data);
+          if (response.status === 401) {
+            this.clearAuthData()
+            this.$route.router.go('/login')
+            return
+          }
+        })
     } else {
-      request
-        .put(this.diaryTemplateUrl)
-        .set('x-auth-token', this.$store.state.authData.token)
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .send(this.diaryTemplate)
-        .end((err, response) => {
-          if (err) {
-            if (err.status === 401) {
-              this.clearAuthData()
-              this.$route.router.go('/login')
-              return
-            }
-            throw err
-          }
-          console.log(response)
+      
+      axiosInstance.put(this.diaryTemplateUrl, this.diaryTemplate)
+        .then((response) => {
+          console.log(response.data);
           this.$route.router.go(URL_PATH_TEMPLATES)
-        })      
-      }
+        })
+        .catch((response) => {
+          console.log(response.data);
+          if (response.status === 401) {
+            this.clearAuthData()
+            this.$route.router.go('/login')
+            return
+          }
+        })
+    }
   }
 }
