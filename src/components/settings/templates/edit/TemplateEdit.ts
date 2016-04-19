@@ -57,31 +57,15 @@ export default class {
       this.diaryTemplate = _.find(this.$store.state.templates, { 'id': this.$route.params.template_id })
     } else {
       
-    axios({
-      method: 'get',
-      url: this.diaryTemplateUrl,
-    })
-    .then((response) => {
-      this.diaryTemplate = response.data
-    })
-    .catch((error) => {
-    });
-
-      
-      // request
-      //   .get(this.diaryTemplateUrl)
-      //   .set('x-auth-token', this.$store.state.authData.token)
-      //   .end((err, response) => {
-      //     if (err) {
-      //       if (err.status === 401) {
-      //         this.clearAuthData()
-      //         this.$route.router.go('/login')
-      //         return
-      //       }
-      //       throw err
-      //     }
-      //     this.diaryTemplate = response.body
-      //   })
+      axios({
+        method: 'get',
+        url: this.diaryTemplateUrl,
+      })
+      .then((response) => {
+        this.diaryTemplate = response.data
+      })
+      .catch((error) => {
+      });
     }
   }
 
