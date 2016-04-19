@@ -8,7 +8,6 @@ import Navbar from '../../../navbar/Navbar'
 import { clearAuthData } from '../../../../vuex/actions'
 
 var _ = require('lodash')
-var request = require('superagent')
 import * as axios from 'axios';   // d.tsがあるとimportで書ける。ないと var axios = require('axios')
 
 @VueComponent({
@@ -52,7 +51,7 @@ export default class {
       return
     }
     
-    this.diaryTemplateUrl = API_ENDPOINT + '/templates/' + this.$route.params.template_id
+    this.diaryTemplateUrl = '/templates/' + this.$route.params.template_id
     
     if (this.$store.state.templates.length > 0) {
       this.diaryTemplate = _.find(this.$store.state.templates, { 'id': this.$route.params.template_id })
