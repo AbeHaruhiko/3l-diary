@@ -82,7 +82,7 @@ export default class {
       }
     
       method = 'post'
-      url = 'templates'
+      url = '/templates'
     } else {
       method = 'put'
       url = this.diaryTemplateUrl
