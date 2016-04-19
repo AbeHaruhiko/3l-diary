@@ -7,6 +7,7 @@ import { API_ENDPOINT } from './App'
 export function configAxios(router, store) {
   
   axios.defaults.baseURL = API_ENDPOINT;
+  axios.defaults.headers.common['x-auth-token'] = store.state.authData.token;
   axios.defaults.headers.common['Accept'] = 'application/json';
   axios.defaults.headers.post['Content-Type'] = 'application/json';
   axios.defaults.headers.put['Content-Type'] = 'application/json';

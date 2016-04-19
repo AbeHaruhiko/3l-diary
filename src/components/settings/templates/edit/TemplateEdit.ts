@@ -96,7 +96,6 @@ export default class {
     axios({
       method: method,
       url: url,
-      headers: { 'x-auth-token': this.$store.state.authData.token },
       data: this.diaryTemplate
     })
     .then((response) => {
