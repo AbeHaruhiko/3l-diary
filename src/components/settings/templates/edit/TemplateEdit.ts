@@ -58,15 +58,15 @@ export default class {
       this.diaryTemplate = _.find(this.$store.state.templates, { 'id': this.$route.params.template_id })
     } else {
       
-      axios({
-        method: 'get',
-        url: this.diaryTemplateUrl,
-      })
-      .then((response) => {
-        this.diaryTemplate = response.data
-      })
-      .catch((error) => {
-      });
+    axios({
+      method: 'get',
+      url: this.diaryTemplateUrl,
+    })
+    .then((response) => {
+      this.diaryTemplate = response.data
+    })
+    .catch((error) => {
+    });
 
       
       // request
