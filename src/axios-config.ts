@@ -5,7 +5,27 @@ import { clearAuthData } from './vuex/actions'
 import { API_ENDPOINT } from './App'
 
 export function configAxios(router, store) {
-  
+
+
+/* axios.d.ts
+
+  interface AxiosStatic extends AxiosRequestMethods {
+    (options: axios.RequestOptions): axios.Promise;
+    create(defaultOptions?: axios.InstanceOptions): AxiosInstance;
+    all(iterable: any): axios.Promise;
+    spread(callback: any): axios.Promise;
+    // 2016/04/19 安部追加
+    defaults: InstanceOptions;
+    interceptors: {
+      request: any,
+      response: any
+    };
+  }
+
+ */
+
+
+
   // デフォルト値の設定（App起動時、一回だけセットされる）
   axios.defaults.baseURL = API_ENDPOINT
   axios.defaults.headers.common['Accept'] = 'application/json'
