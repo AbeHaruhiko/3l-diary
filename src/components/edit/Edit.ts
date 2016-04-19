@@ -9,6 +9,7 @@ import { clearAuthData } from '../../vuex/actions'
 
 var _ = require('lodash')
 var request = require('superagent')
+import * as axios from 'axios';   // d.tsがあるとimportで書ける。ないと var axios = require('axios')
 
 @VueComponent({
   template: require('./Edit.html'),
@@ -49,25 +50,21 @@ export default class {
       return
     }
     
-    this.diaryUrl = API_ENDPOINT + "/posts/" + this.$route.params.post_id
+    this.diaryUrl = "/posts/" + this.$route.params.post_id
     
     if (this.$store.state.diaries.length > 0) {
       this.diary = _.find(this.$store.state.diaries, { 'id': this.$route.params.post_id })
     } else {
-      request
-        .get(this.diaryUrl)
-        .set('x-auth-token', this.$store.state.authData.token)
-        .end((err, response) => {
-          if (err) {
-            if (err.status === 401) {
-              this.clearAuthData()
-              this.$route.router.go('/login')
-              return
-            }
-            throw err
-          }
-          this.diary = response.body
-        })
+      
+      axios({
+        method: 'get',
+        url: this.diaryUrl,
+      })
+      .then((response) => {
+        this.diary = response.data
+      })
+      .catch((error) => {
+      });
     }
   }
 
