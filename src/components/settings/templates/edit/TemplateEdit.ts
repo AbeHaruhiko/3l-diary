@@ -75,51 +75,36 @@ export default class {
   }
 
   save() {
-    // 既存テンプレートの編集でない（＝新規作成）場合
     
-    for (let i = 0; i < this.diaryTemplate.templateItems.length; i++) {
-      this.diaryTemplate.templateItems[i].sequence = i + 1;
+    let method: string;
+    let url: string;
+    if (!this.$route.params.template_id) {
+      // 既存テンプレートの編集でない（＝新規作成）場合
+
+      // 連番振る
+      for (let i = 0; i < this.diaryTemplate.templateItems.length; i++) {
+        this.diaryTemplate.templateItems[i].sequence = i + 1;
+      }
+    
+      method = 'post'
+      url = 'templates'
+    } else {
+      method = 'put'
+      url = this.diaryTemplateUrl
     }
     
-    var axiosInstance = axios.create({
-      baseURL: API_ENDPOINT,
-      headers: {
-        'x-auth-token': this.$store.state.authData.token,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
+    axios({
+      method: method,
+      url: url,
+      headers: { 'x-auth-token': this.$store.state.authData.token },
+      data: this.diaryTemplate
+    })
+    .then((response) => {
+      console.log(response.data);
+      this.$route.router.go(URL_PATH_TEMPLATES)
+    })
+    .catch((error) => {
     });
 
-    if (!this.$route.params.template_id) {
-
-      axiosInstance.post('/templates', this.diaryTemplate)
-        .then((response) => {
-          console.log(response.data);
-          this.$route.router.go(URL_PATH_TEMPLATES)
-        })
-        .catch((response) => {
-          console.log(response.data);
-          if (response.status === 401) {
-            this.clearAuthData()
-            this.$route.router.go('/login')
-            return
-          }
-        })
-    } else {
-      
-      axiosInstance.put(this.diaryTemplateUrl, this.diaryTemplate)
-        .then((response) => {
-          console.log(response.data);
-          this.$route.router.go(URL_PATH_TEMPLATES)
-        })
-        .catch((response) => {
-          console.log(response.data);
-          if (response.status === 401) {
-            this.clearAuthData()
-            this.$route.router.go('/login')
-            return
-          }
-        })
-    }
   }
 }

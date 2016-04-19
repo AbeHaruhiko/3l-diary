@@ -7,6 +7,7 @@ import App from './App'
 import store from './vuex/store'
 var { sync } = require('vuex-router-sync')
 import { configRouter } from './router-config'
+import { configAxios } from './axios-config'
 
 require('bootstrap')
 
@@ -27,6 +28,9 @@ configRouter(router, store)
 
 // routerとstoreを同期
 sync(store, router)
+
+// configure axios
+configAxios(router, store)
 
 // 第二引数のelementをAppでリプレイスする。
 router.start(App, '#app')
