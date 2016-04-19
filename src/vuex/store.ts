@@ -22,7 +22,7 @@ const state = {
   authData: JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"),
   diaries: {},
   pastDiary: {},
-  templates: {},
+  templates: [],
 }
 
 const mutations = {

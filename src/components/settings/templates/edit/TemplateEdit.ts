@@ -86,9 +86,6 @@ export default class {
         .set('x-auth-token', this.$store.state.authData.token)
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
-        // .send({ name: this.diaryTemplate.name })
-        // .send({ username: this.$store.state.authData.username })
-        // .send({ templateItems: this.diaryTemplate.templateItems })
         .send(this.diaryTemplate)
         .end((err, response) => {
           if (err) {
@@ -108,10 +105,7 @@ export default class {
         .set('x-auth-token', this.$store.state.authData.token)
         .set('Accept', 'application/json')
         .set('Content-Type', 'application/json')
-        .send({ name: this.diaryTemplate.name })
-        .send({ createdAt: this.diaryTemplate.createdAt })  // 更新しないので元の値をセット（ださい）
-        .send({ username: this.$store.state.authData.username })
-        .send({ templateItems: this.diaryTemplate.templateItems })
+        .send(this.diaryTemplate)
         .end((err, response) => {
           if (err) {
             if (err.status === 401) {
