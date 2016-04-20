@@ -79,7 +79,7 @@ export default class {
     //     })
     // }
     
-    // 過去の日記の取得
+    // テンプレートの取得
     var axiosInstance = axios.create({
       baseURL: API_ENDPOINT,
       headers: { 'x-auth-token': this.$store.state.authData.token }

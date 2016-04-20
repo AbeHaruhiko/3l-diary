@@ -5,7 +5,7 @@
 import VueComponent from 'vue-class-component'
 import { API_ENDPOINT, URL_PATH_POSTS } from '../../App'
 import Navbar from '../navbar/Navbar'
-import { clearAuthData } from '../../vuex/actions'
+import { clearAuthData, setTemplates } from '../../vuex/actions'
 
 var _ = require('lodash')
 var request = require('superagent')
@@ -20,7 +20,7 @@ import * as axios from 'axios';   // d.tsがあるとimportで書ける。ない
     canReuse: false   // 既存編集と新規投稿を行き来するときがあるので。
   },
   vuex: { // ここで追加せずに、importしたactionを直接呼び出しても、apply of undifined的なメッセージが出てactionは実行されない。
-    actions: { clearAuthData }
+    actions: { clearAuthData, setTemplates }
   }
 })
 export default class {
@@ -30,6 +30,7 @@ export default class {
   $route   // これがないとthis.$routeがTSコンパイルエラー。vue-router.d.tsに定義されているのでどうにかなりそうだけど・・・。
   $store
   clearAuthData: Function  // @VueComponentのvuex.actionはクラスのプロパティに設定されるので、thisで参照できるよう宣言。
+  setTemplates: Function   // @VueComponentのvuex.actionはクラスのプロパティに設定されるので、thisで参照できるよう宣言。
 
   diary: any
   diaryUrl: string
@@ -45,6 +46,23 @@ export default class {
   }
 
   created() {
+
+    // テンプレートの取得
+    if (this.$store.state.templates.length > 0) {
+      
+    } else {
+      
+      axios({
+        method: 'get',
+        url: '/templates',
+      })
+      .then((response) => {
+        this.setTemplates(response.data)
+      })
+      .catch((error) => {
+      });
+    }
+
     // 既存日記の編集でない（＝新規投稿）場合
     if (!this.$route.params.post_id) {
       return
@@ -52,6 +70,7 @@ export default class {
     
     this.diaryUrl = "/posts/" + this.$route.params.post_id
     
+    // 過去投稿の取得
     if (this.$store.state.diaries.length > 0) {
       this.diary = _.find(this.$store.state.diaries, { 'id': this.$route.params.post_id })
     } else {

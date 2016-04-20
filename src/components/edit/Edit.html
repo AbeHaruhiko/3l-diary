@@ -15,11 +15,8 @@
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
-                <li>
-                  <a>hoge</a>
-                </li>
-                <li>
-                  <a>hoge</a>
+                <li v-for="template in $store.state.templates">
+                  <a>{{ template.name }}</a>
                 </li>
               </ul>
             </div>
