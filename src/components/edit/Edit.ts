@@ -69,48 +69,74 @@ export default class {
   }
 
   save() {
-    // 既存日記の編集でない（＝新規投稿）場合
+    
+    let method: string;
+    let url: string;
     if (!this.$route.params.post_id) {
-      request
-        .post(API_ENDPOINT + "/posts")
-        .set('x-auth-token', this.$store.state.authData.token)
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .send({ body: this.diary.body })
-        .send({ username: this.$store.state.authData.username })
-        .end((err, response) => {
-          if (err) {
-            if (err.status === 401) {
-              this.clearAuthData()
-              this.$route.router.go('/login')
-              return
-            }
-            throw err
-          }
-          console.log(response)
-          this.$route.router.go(URL_PATH_POSTS)
-        })      
+      // 既存テンプレートの編集でない（＝新規作成）場合
+
+      method = 'post'
+      url = '/posts'
     } else {
-      request
-        .put(this.diaryUrl)
-        .set('x-auth-token', this.$store.state.authData.token)
-        .set('Accept', 'application/json')
-        .set('Content-Type', 'application/json')
-        .send({ body: this.diary.body })
-        .send({ createdAt: this.diary.createdAt })  // 更新しないので元の値をセット（ださい）
-        .send({ username: this.$store.state.authData.username })
-        .end((err, response) => {
-          if (err) {
-            if (err.status === 401) {
-              this.clearAuthData()
-              this.$route.router.go('/login')
-              return
-            }
-            throw err
-          }
-          console.log(response)
-          this.$route.router.go(URL_PATH_POSTS)
-        })      
-      }
+      method = 'put'
+      url = this.diaryUrl
+    }
+    
+    axios({
+      method: method,
+      url: url,
+      data: this.diary
+    })
+    .then((response) => {
+      console.log(response.data);
+      this.$route.router.go(URL_PATH_POSTS)
+    })
+    .catch((error) => {
+    });
+
+    
+    // // 既存日記の編集でない（＝新規投稿）場合
+    // if (!this.$route.params.post_id) {
+    //   request
+    //     .post(API_ENDPOINT + "/posts")
+    //     .set('x-auth-token', this.$store.state.authData.token)
+    //     .set('Accept', 'application/json')
+    //     .set('Content-Type', 'application/json')
+    //     .send({ body: this.diary.body })
+    //     .send({ username: this.$store.state.authData.username })
+    //     .end((err, response) => {
+    //       if (err) {
+    //         if (err.status === 401) {
+    //           this.clearAuthData()
+    //           this.$route.router.go('/login')
+    //           return
+    //         }
+    //         throw err
+    //       }
+    //       console.log(response)
+    //       this.$route.router.go(URL_PATH_POSTS)
+    //     })      
+    // } else {
+    //   request
+    //     .put(this.diaryUrl)
+    //     .set('x-auth-token', this.$store.state.authData.token)
+    //     .set('Accept', 'application/json')
+    //     .set('Content-Type', 'application/json')
+    //     .send({ body: this.diary.body })
+    //     .send({ createdAt: this.diary.createdAt })  // 更新しないので元の値をセット（ださい）
+    //     .send({ username: this.$store.state.authData.username })
+    //     .end((err, response) => {
+    //       if (err) {
+    //         if (err.status === 401) {
+    //           this.clearAuthData()
+    //           this.$route.router.go('/login')
+    //           return
+    //         }
+    //         throw err
+    //       }
+    //       console.log(response)
+    //       this.$route.router.go(URL_PATH_POSTS)
+    //     })      
+    //   }
   }
 }
