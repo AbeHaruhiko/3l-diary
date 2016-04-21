@@ -16,11 +16,12 @@
               </button>
               <ul class="dropdown-menu">
                 <li v-for="template in $store.state.templates">
-                  <a>{{ template.name }}</a>
+                  <a @click.stop.prevent="applyTemplate(template)">{{ template.name }}</a>
                 </li>
               </ul>
             </div>
-            <div class="form-group">
+            <div class="form-group" v-for="templateItem in currentTemplate.templateItems">
+              <input type="text" v-model="templateItem.body" class="form-control"/>
               <textarea
               v-model="diary.body"
               name="description"

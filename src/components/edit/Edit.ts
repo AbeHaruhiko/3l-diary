@@ -34,10 +34,19 @@ export default class {
 
   diary: any
   diaryUrl: string
+  
+  currentTemplate
 
   data(): any {
     return {
-      diary: {}   // 無いとブラウザリロードでまっしろ
+      diary: {},   // 無いとブラウザリロードでまっしろ,
+      currentTemplate: {
+        templateItems: [  // デフォルト値
+          { body: '今日いちばん失敗したこと'},
+          { body: '今日いちばん感動したこと'},
+          { body: '明日の目標'}
+        ]
+      },   // 無いとブラウザリロードでまっしろ,
     }
   }
 
@@ -112,50 +121,9 @@ export default class {
     })
     .catch((error) => {
     });
-
-    
-    // // 既存日記の編集でない（＝新規投稿）場合
-    // if (!this.$route.params.post_id) {
-    //   request
-    //     .post(API_ENDPOINT + "/posts")
-    //     .set('x-auth-token', this.$store.state.authData.token)
-    //     .set('Accept', 'application/json')
-    //     .set('Content-Type', 'application/json')
-    //     .send({ body: this.diary.body })
-    //     .send({ username: this.$store.state.authData.username })
-    //     .end((err, response) => {
-    //       if (err) {
-    //         if (err.status === 401) {
-    //           this.clearAuthData()
-    //           this.$route.router.go('/login')
-    //           return
-    //         }
-    //         throw err
-    //       }
-    //       console.log(response)
-    //       this.$route.router.go(URL_PATH_POSTS)
-    //     })      
-    // } else {
-    //   request
-    //     .put(this.diaryUrl)
-    //     .set('x-auth-token', this.$store.state.authData.token)
-    //     .set('Accept', 'application/json')
-    //     .set('Content-Type', 'application/json')
-    //     .send({ body: this.diary.body })
-    //     .send({ createdAt: this.diary.createdAt })  // 更新しないので元の値をセット（ださい）
-    //     .send({ username: this.$store.state.authData.username })
-    //     .end((err, response) => {
-    //       if (err) {
-    //         if (err.status === 401) {
-    //           this.clearAuthData()
-    //           this.$route.router.go('/login')
-    //           return
-    //         }
-    //         throw err
-    //       }
-    //       console.log(response)
-    //       this.$route.router.go(URL_PATH_POSTS)
-    //     })      
-    //   }
+  }
+  
+  applyTemplate(template: { id: { name: string, templateItems: { id: string, body: string, sequence: number }[], id: string} }) {
+    this.currentTemplate = template;
   }
 }
