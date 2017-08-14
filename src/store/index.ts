@@ -7,14 +7,14 @@ import * as consts from '../consts/consts'
 Vue.use(Vuex)
 
 
-// Chroneco用Stateの型定義
-interface ChronecoState {
+// 3l-diary用Stateの型定義
+interface DiaryState {
   message: string
 }
 
 // root state object.
 // each Vuex instance is just a single state tree.
-const state: ChronecoState = {
+const state: DiaryState = {
   message: null
 }
 
