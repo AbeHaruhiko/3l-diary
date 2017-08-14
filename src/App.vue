@@ -11,7 +11,7 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import Navbar from './components/Navbar.vue'
 import Message from './components/Message.vue'
- 
+
 @Component({
   name: 'app',
   components: {

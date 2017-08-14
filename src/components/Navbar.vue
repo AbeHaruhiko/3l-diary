@@ -9,14 +9,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Chroneco</a>
+      <a class="navbar-brand" href="#">3l-diary</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <router-link to="/" tag="li" active-class="active" exact><a>Home</a></router-link>
-        <router-link to="/icon-regi" tag="li" active-class="active"><a>アイコン登録</a></router-link>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
