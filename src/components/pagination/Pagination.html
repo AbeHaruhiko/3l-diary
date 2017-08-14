@@ -1,28 +1,30 @@
 <nav class="text-center">
   <ul class="pagination">
     <li :class="prevButtonState">
-      <a v-if="prevButtonState !== 'disabled'" v-link="{ path: URL_PATH_POSTS, query: { page: 0 }}" aria-label="First">
+      <router-link v-if="prevButtonState !== 'disabled'" to="{ path: URL_PATH_POSTS, query: { page: 0 }}" aria-label="First">
         <span aria-hidden="true">&laquo;</span>
-      </a>
+      </router-link>
       <span v-else aria-hidden="true">&laquo;</span>
     </li>
     <li :class="prevButtonState">
-      <a v-if="prevButtonState !== 'disabled'" v-link="{ path: URL_PATH_POSTS, query: { page: currentPageNumber - 1 }}" aria-label="Previous">
+      <router-link v-if="prevButtonState !== 'disabled'" to="{ path: URL_PATH_POSTS, query: { page: currentPageNumber - 1 }}" aria-label="Previous">
         <span aria-hidden="true">&lt;</span>
-      </a>
+      </router-link>
       <span v-else aria-hidden="true">&lt;</span>
     </li>
-    <li v-for="n in tailOfPagination - headOfPagination + 1" class="{{ isCurrentPage(n + headOfPagination) ? 'active' : '' }}"><a v-link="{ path: URL_PATH_POSTS, query: { page: n + headOfPagination }}">{{ n + headOfPagination + 1 }}</a></li>
+    <li v-for="n in tailOfPagination - headOfPagination + 1" v-bind:class="isCurrentPage(n + headOfPagination) ? 'active' : ''">
+      <router-link to="{ path: URL_PATH_POSTS, query: { page: n + headOfPagination }}">{{ n + headOfPagination + 1 }}</router-link>
+    </li>
     <li :class="nextButtonState">
-      <a v-if="nextButtonState !== 'disabled'" v-link="{ path: URL_PATH_POSTS, query: { page: currentPageNumber + 1 }}" aria-label="Next">
+      <router-link v-if="nextButtonState !== 'disabled'" to="{ path: URL_PATH_POSTS, query: { page: currentPageNumber + 1 }}" aria-label="Next">
         <span aria-hidden="true">&gt;</span>
-      </a>
+      </router-link>
       <span v-else aria-hidden="true">&gt;</span>
     </li>
     <li :class="nextButtonState">
-      <a v-if="nextButtonState !== 'disabled'" v-link="{ path: URL_PATH_POSTS, query: { page: totalPages - 1 }}" aria-label="Last">
+      <router-link v-if="nextButtonState !== 'disabled'" to="{ path: URL_PATH_POSTS, query: { page: totalPages - 1 }}" aria-label="Last">
         <span aria-hidden="true">&raquo;</span>
-      </a>
+      </router-link>
       <span v-else aria-hidden="true">&raquo;</span>
     </li>
   </ul>

@@ -56,7 +56,8 @@ const mutations = {
   },
 
   DELETE_TODO (state, todo) {
-    state.todos.$remove(todo)
+    var index = state.todos.indexOf(todo);
+    state.todos.splice(index, 1)
   },
 
   TOGGLE_TODO (state, todo) {

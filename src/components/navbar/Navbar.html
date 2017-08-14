@@ -18,13 +18,13 @@
             <div class="input-group">
               <input type="text" class="form-control" placeholder="キーワード検索" v-model="searchKeyword">
               <span class="input-group-btn">
-                <a class="btn btn-default" type="button" v-link="{ path: URL_PATH_POSTS, query: { q: searchKeyword }}"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                <router-link class="btn btn-default" type="button" to="{ path: URL_PATH_POSTS, query: { q: searchKeyword }}"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></router-link>
               </span>
             </div>
           </form>
           <li>
             <!-- http://stackoverflow.com/questions/11580004/angular-js-link-behaviour-disable-deep-linking-for-specific-urls -->
-            <a role="button" v-link="'/edit'" target="_self"><span class="glyphicon glyphicon-pencil"></span></a>
+            <router-link role="button" to="'/edit'" target="_self"><span class="glyphicon glyphicon-pencil"></span></router-link>
           </li>
           <li>
             <!-- http://stackoverflow.com/questions/11580004/angular-js-link-behaviour-disable-deep-linking-for-specific-urls -->

@@ -8,60 +8,21 @@ import TemplateList from './components/settings/templates/templateList'
 import TemplateEdit from './components/settings/templates/edit/TemplateEdit'
 import { URL_PATH_POSTS } from './App'
 
+export const routes = [
+    { path: '/hello', component: Hello },
+    { path: '/login', component: Login },
+    { path: '/signup', component: Signup },
+    { path: '/posts/:post_id', name: 'post', component: Post, needsAuth: true },
+    { path: '/posts', component: PostList, needsAuth: true },
+    { path: '/posts/search', component: PostList, needsAuth: true },
+    { path: '/edit/:post_id', name: 'edit', component: Edit, needsAuth: true },
+    { path: '/edit', component: Edit, needsAuth: true },
+    { path: '/settings/templates', component: TemplateList, needsAuth: true },
+    { path: '/settings/templates/edit', component: TemplateEdit, needsAuth: true },
+    { path: '/settings/templates/edit/:template_id', name: 'template_edit', component: TemplateEdit, needsAuth: true },
+]
+
 export function configRouter (router, store) {
-
-  // routes を定義します
-  router.map({
-    '/hello': {
-      component: Hello
-    },
-    '/login': {
-        component: Login
-    },
-    '/signup': {
-        component: Signup
-    },
-    '/posts/:post_id': {
-        name: 'post',
-        component: Post,
-        needsAuth: true
-    },
-    '/posts': {
-        component: PostList,
-        needsAuth: true
-    },
-    '/posts/search': {
-        component: PostList,
-        needsAuth: true
-    },
-    '/edit/:post_id': {
-        name: 'edit',
-        component: Edit,
-        needsAuth: true
-    },
-    '/edit': {
-        component: Edit,
-        needsAuth: true
-    },
-    '/settings/templates': {
-        component: TemplateList,
-        needsAuth: true
-    },
-    '/settings/templates/edit': {
-        component: TemplateEdit,
-        needsAuth: true
-    },
-    '/settings/templates/edit/:template_id': {
-        name: 'template_edit',
-        component: TemplateEdit,
-        needsAuth: true
-    }
-  })
-
-  // router.redirect({
-  //     '/': '/posts'
-  // })
-
   // 認証
   router.beforeEach(function (transition: vuerouter.Transition<any, any, any, any, any>) {
 

@@ -50,7 +50,7 @@ export default class {
           if (err) {
             if (err.status === 401) {
               this.clearAuthData()
-              this.$route.router.go('/login')
+              this.$route.router.push('/login')
               return
             }
             throw err
@@ -61,7 +61,7 @@ export default class {
   }
   
   edit() {
-    this.$route.router.go('/edit')
+    this.$route.router.push('/edit')
   }
   
   delete() {
@@ -72,13 +72,13 @@ export default class {
         if (err) {
           if (err.status === 401) {
             this.clearAuthData()
-            this.$route.router.go('/login')
+            this.$route.router.push('/login')
             return
           }
           throw err
         }
         console.log(response)
-        this.$route.router.go(URL_PATH_POSTS)
+        this.$route.router.push(URL_PATH_POSTS)
       })      
   }
 }

@@ -112,14 +112,14 @@ export default class {
     //     if (err) {
     //       if (err.status === 401) {
     //         this.clearAuthData()
-    //         this.$route.router.go('/login')
+    //         this.$route.router.push('/login')
     //         return
     //       }
     //       throw err
     //     }
     //     console.log(response.body)
     //     this.setDiaries(response.body)
-    //     this.$route.router.go({ path: URL_PATH_POSTS, query: { page: page } })
+    //     this.$route.router.push({ path: URL_PATH_POSTS, query: { page: page } })
     //   })
 
     // }

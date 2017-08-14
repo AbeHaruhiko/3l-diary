@@ -48,7 +48,7 @@ export function configAxios(router, store) {
     console.log(error.data)
     if (error.status === 401) {
       clearAuthData(store)
-      router.go('/login')
+      router.push('/login')
       return Promise.reject(error)
     }
   });

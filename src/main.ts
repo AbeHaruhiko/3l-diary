@@ -7,6 +7,7 @@ import App from './App'
 import store from './vuex/store'
 var { sync } = require('vuex-router-sync')
 import { configRouter } from './router-config'
+import { routes } from './router-config'
 import { configAxios } from './axios-config'
 
 require('bootstrap')
@@ -14,13 +15,12 @@ require('bootstrap')
 require('../node_modules/bootstrap/dist/css/bootstrap.css')
 require('../node_modules/font-awesome/css/font-awesome.min.css')
 
-Vue.config.debug = true
-
 Vue.use(VueRouter)
 
 // router インスタンスを作成。
 var router = new VueRouter({
-  history: false
+  history: false,
+  routes: routes
 })
 
 // configure router
@@ -33,4 +33,7 @@ sync(store, router)
 configAxios(router, store)
 
 // 第二引数のelementをAppでリプレイスする。
-router.start(App, '#app')
+new Vue({
+  el: '#app',
+  router: router
+})

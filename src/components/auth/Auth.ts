@@ -108,7 +108,7 @@ export default class Auth {
 
   logout(route): void {
     clearAuthData(store)
-    route.router.go('/login')
+    route.router.push('/login')
   }
 
   // getAuthCallback(route): (error: any, authData: FirebaseAuthData) => void {

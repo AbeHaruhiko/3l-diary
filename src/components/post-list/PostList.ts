@@ -23,7 +23,6 @@ import * as axios from 'axios';   // d.tsがあるとimportで書ける。ない
     actions: { clearAuthData, setDiaries, setPastDiaries }
   },
   route: {
-    canReuse: false   // 既存編集と新規投稿を行き来するときがあるので。
   },
 })
 export default class {
@@ -56,7 +55,7 @@ export default class {
           if (err) {
             if (err.status === 401) {
               this.clearAuthData()
-              this.$route.router.go('/login')
+              this.$route.router.push('/login')
               return
             }
             throw err
@@ -75,7 +74,7 @@ export default class {
           if (err) {
             if (err.status === 401) {
               this.clearAuthData()
-              this.$route.router.go('/login')
+              this.$route.router.push('/login')
               return
             }
             throw err

@@ -28,7 +28,7 @@ function makeAction (type) {
 //         if (err) {
 //           if (err.status === 401) {
 //             this.clearAuthData()
-//             this.$route.router.go('/login')
+//             this.$route.router.push('/login')
 //             return
 //           }
 //           throw err

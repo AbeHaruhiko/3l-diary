@@ -16,7 +16,7 @@
           </span>
 
           <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel">
-            <li><a v-link="{ name: 'edit', params: { post_id: diary.id } }">編集する</a></li>
+            <li><router-link to="{ name: 'edit', params: { post_id: diary.id } }">編集する</router-link></li>
             <li><a @click.stop.prevent="delete">削除する</a></li>
           </ul>
         </span>        

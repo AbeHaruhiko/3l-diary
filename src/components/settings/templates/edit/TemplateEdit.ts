@@ -16,7 +16,6 @@ import * as axios from 'axios';   // d.tsがあるとimportで書ける。ない
     'navbar': Navbar
   },
   route: {
-    canReuse: false   // 既存編集と新規投稿を行き来するときがあるので。
   },
   vuex: { // ここで追加せずに、importしたactionを直接呼び出しても、apply of undifined的なメッセージが出てactionは実行されない。
     actions: { clearAuthData }
@@ -41,8 +40,8 @@ export default class {
     }
   }
 
-  ready() {
-    console.log('ready')
+  mounted() {
+    console.log('mounted')
   }
 
   created() {

@@ -5,7 +5,7 @@ module.exports = {
     app: './src/main.ts'
   },
   output: {
-    path: path.resolve(__dirname, '../../3l-diary-server/repo/src/main/resources/public/static'),
+    path: path.resolve(__dirname, '../../04.3l-diary-server/repo/src/main/resources/public/static'),
     publicPath: '/static/',
     filename: '[name].js'
   },
