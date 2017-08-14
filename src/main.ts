@@ -8,6 +8,7 @@ import firebase from 'firebase'
 import firebaseui from 'firebaseui'
 
 import { firebaseConfig }　from './conf/firebase'
+import { configRouter } from './router'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap'
@@ -15,6 +16,8 @@ import 'bootstrap'
 import 'firebaseui/dist/firebaseui.css'
  
 Vue.config.productionTip = false
+
+configRouter(router)
 
 /* eslint-disable no-new */
 new Vue({
