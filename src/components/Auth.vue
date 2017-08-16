@@ -1,15 +1,20 @@
 <template lang="html">
   <div id="firebaseui-auth-container"></div>
 </template>
-<script>
+
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
 import firebase from 'firebase'
 import firebaseui from 'firebaseui'
 
-export default {
-  name: 'auth',
+@Component({
+})
+export default class Auth extends Vue {
   mounted () {
-    var uiConfig = {
-      signInSuccessUrl: '/success',
+    // signInSuccessUrlはセットするとサーバサイドでリダイレクトされるため/#/がおかしくなるので''にする。移動はvue-router.pushで実施。
+    const uiConfig = {
+      signInSuccessUrl: '',
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID
       ]

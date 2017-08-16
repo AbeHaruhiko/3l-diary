@@ -17,8 +17,6 @@ import 'firebaseui/dist/firebaseui.css'
  
 Vue.config.productionTip = false
 
-configRouter(router)
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -30,10 +28,12 @@ new Vue({
     firebase.initializeApp(firebaseConfig);
     firebase.auth().onAuthStateChanged((user) => {
       if(user) {
-        this.$router.push('/success')
+        this.$router.push('/')
       } else {
         this.$router.push('/auth')
       }
-    });
+    })
   }
 })
+
+configRouter(router)
