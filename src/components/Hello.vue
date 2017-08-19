@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="container">
-            main
+            hello
         </div>
     </div>
 </template>
@@ -14,6 +14,7 @@ import Component from 'vue-class-component'
   components: {
   }
 })
-export default class Main extends Vue {
+export default class Hello extends Vue {
 }
 </script>
+

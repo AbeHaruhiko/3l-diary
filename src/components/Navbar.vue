@@ -18,6 +18,7 @@
         <router-link to="/" tag="li" active-class="active" exact><a>Home</a></router-link>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -40,9 +41,16 @@ import firebase from 'firebase'
 export default {
   methods: {
     logOut () {
+<<<<<<< HEAD
+=======
+      console.log('logOut called.')
+>>>>>>> d596ca3d6aca2194637e7bf12cfb500cb8315bc0
       firebase.auth().signOut()
     }
   }
 }
 </script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> d596ca3d6aca2194637e7bf12cfb500cb8315bc0
