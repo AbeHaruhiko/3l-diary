@@ -41,16 +41,9 @@ import firebase from 'firebase'
 export default {
   methods: {
     logOut () {
-<<<<<<< HEAD
-=======
       console.log('logOut called.')
->>>>>>> d596ca3d6aca2194637e7bf12cfb500cb8315bc0
       firebase.auth().signOut()
     }
   }
 }
 </script>
-<<<<<<< HEAD
-
-=======
->>>>>>> d596ca3d6aca2194637e7bf12cfb500cb8315bc0
