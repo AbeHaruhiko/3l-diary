@@ -2,6 +2,7 @@
   <div>
     <div class="container">
       <a href="#" @click="getPosts">posts</a>
+      <post-list/>
     </div>
   </div>
 </template>
@@ -14,8 +15,11 @@ import firebase from 'firebase'
 
 import * as consts from '../consts/consts'
 
+import PostList from './PostList.vue'
+
 @Component({
   components: {
+    'post-list': PostList
   }
 })
 export default class Main extends Vue {

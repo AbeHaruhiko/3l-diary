@@ -1,21 +1,25 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import request from 'superagent'
 
 import * as consts from '../consts/consts'
+
+import {Post} from '../types/Post'
 
 
 Vue.use(Vuex)
 
-
 // 3l-diary用Stateの型定義
 interface DiaryState {
   message: string
+  posts: Post[]
 }
 
 // root state object.
 // each Vuex instance is just a single state tree.
 const state: DiaryState = {
-  message: null
+  message: null,
+  posts: []
 }
 
 // mutations are operations that actually mutates the state.
@@ -26,13 +30,31 @@ const state: DiaryState = {
 const mutations = {
   setMessage (state, message: string) {
     state.message = message
-  }
+  },
+  setPosts (state, posts: Post[]) {
+    state.posts = posts
+  },
 }
 
 // actions are functions that causes side effects and can involve
 // asynchronous operations.
 const actions = {
 
+  getPosts ({ commit }, firebase) {
+    firebase.firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(idToken => {
+      request
+        .get(consts.API_ENDPOINT + 'posts')
+        .set('X-Authorization-Firebase', idToken)
+        .end(function (err, res) {
+          if (err) throw err
+          console.log(res.body)
+          commit('setPosts', res.body)
+        })
+    }).catch(error => {
+      // Handle error
+      console.log(error)
+    })
+  }
 }
 
 // getters are functions
