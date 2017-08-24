@@ -65,7 +65,7 @@ const actions = {
     if (!state.currentUser) {
       // console.log(state.route)
       // console.log(payload.router)
-      payload.router.push('/auth')
+      // payload.router.push('/auth')
     } else {
       state.currentUser.getIdToken(/* forceRefresh */ true).then(idToken => {
         request

@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="panel panel-default" v-for="(post, index) in $store.state.posts" v-bind:key="index">
+    <div class="panel panel-default" v-for="(post, index) in $store.state.posts.content" v-bind:key="index" v-if="post.body">
       <div class="panel-heading">
         <h3 class="panel-title">{{ post.createdAt }}</h3>
       </div>
       <div class="panel-body">
-        post.body
+        {{ post.body }}
       </div>
     </div>
   </div>
