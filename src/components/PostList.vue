@@ -14,13 +14,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import firebase from 'firebase'
 
 @Component({
 })
 export default class PostList extends Vue {
   mounted () {
-    this.$store.dispatch('getPosts', { firebase })
+    this.$store.dispatch('getPosts', { router: this.$router })
   }
 }
 </script>

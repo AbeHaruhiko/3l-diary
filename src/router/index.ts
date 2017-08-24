@@ -30,7 +30,8 @@ export function configRouter (router) {
       if (currentUser) {
         next()
       } else {
-        next({ path: '/auth' })
+        // next({ path: '/auth' })
+        next({ path: '/auth', query: { redirect: to.fullPath }})
         // TODO: to.fullPathへのリダイレクト
       }
     } else {

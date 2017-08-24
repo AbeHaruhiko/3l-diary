@@ -6,8 +6,10 @@ import router from './router'
 import store from './store'
 import firebase from 'firebase'
 import firebaseui from 'firebaseui'
+import { sync } from 'vuex-router-sync'
 
-import { firebaseConfig }　from './conf/firebase'
+// import { firebaseConfig }　from './conf/firebase'
+import { firebaseApp, firebaseUiApp } from './conf/firebase';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap'
@@ -15,6 +17,8 @@ import 'bootstrap'
 import 'firebaseui/dist/firebaseui.css'
  
 Vue.config.productionTip = false
+
+sync(store, router)
 
 /* eslint-disable no-new */
 new Vue({
@@ -24,13 +28,19 @@ new Vue({
   template: '<App/>',
   components: { App },
   created() {
-    firebase.initializeApp(firebaseConfig);
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(user => {
+      store.commit('setCurrentUser', user)      
       if(user) {
-        this.$router.push('/')
+        if (this.$route.query.redirect) {
+          this.$router.push(this.$route.query.redirect)
+        } else {
+          this.$router.push('/')
+        }
       } else {
         this.$router.push('/auth')
       }
-    });
+    })
+    store.commit('setFirebaseApp', firebaseApp);
+    store.commit('setFirebaseUiApp', firebaseUiApp);
   }
 })
