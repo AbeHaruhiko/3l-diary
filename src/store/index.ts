@@ -8,7 +8,7 @@ import firebaseui from 'firebaseui'
 import router from '../router'
 import * as consts from '../consts/consts'
 
-import {Post} from '../types/Post'
+import {Posts} from '../types/Posts'
 
 
 Vue.use(Vuex)
@@ -16,7 +16,7 @@ Vue.use(Vuex)
 // 3l-diary用Stateの型定義
 interface DiaryState {
   message: string
-  posts: Post[]
+  posts: Posts
   route: VueRouter.Route
   currentUser: firebase.User
   firebaseApp: firebase.app.App
@@ -27,7 +27,7 @@ interface DiaryState {
 // each Vuex instance is just a single state tree.
 const state: DiaryState = {
   message: null,
-  posts: [],
+  posts: null,
   route: null,
   currentUser: null,
   firebaseApp: null,
@@ -43,7 +43,7 @@ const mutations = {
   setMessage (state, message: string) {
     state.message = message
   },
-  setPosts (state, posts: Post[]) {
+  setPosts (state, posts: Posts) {
     state.posts = posts
   },
   setCurrentUser(state, user) {
@@ -86,10 +86,13 @@ const actions = {
 
 // getters are functions
 const getters = {
-  getMessage: string => () => state.message,
-  currentUser: state => state.currentUser,
-  firebaseApp: state => state.firebaseApp,
-  firebaseUiApp: state => state.firebaseUiApp,
+  getMessage: () => state.message,
+  currentUser: () => state.currentUser,
+  firebaseApp: () => state.firebaseApp,
+  firebaseUiApp: () => state.firebaseUiApp,
+  getPostById: (state, getters) => (id) => {
+    return state.posts.content.find(post => post.id === id)
+  }
 }
 
 // A Vuex instance is created by combining the state, mutations, actions,

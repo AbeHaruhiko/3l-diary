@@ -5,7 +5,7 @@ import firebase from 'firebase'
 import Main from '@/components/Main.vue'
 import Hello from '@/components/Hello.vue'
 import Auth from '@/components/Auth.vue'
-import AuthSuccess from '@/components/AuthSuccess.vue'
+import Post from '@/components/Post.vue'
 
 Vue.use(VueRouter)
 
@@ -14,7 +14,7 @@ export default new VueRouter({
     { path: '/', component: Main, meta: { requiresAuth: true } },
     { path: '/auth', component: Auth },
     { path: '/hello', component: Hello, meta: { requiresAuth: true } },
-    { path: '/success', component: AuthSuccess }
+    { path: '/posts/:id', component: Post, name: 'post' }
   ]
 })
 
