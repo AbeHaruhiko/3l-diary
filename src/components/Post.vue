@@ -21,5 +21,5 @@ export default class Post extends Vue {
 }
 </script>
 
-<style>
+<style scoped>
 </style>

@@ -6,6 +6,7 @@ import Main from '@/components/Main.vue'
 import Hello from '@/components/Hello.vue'
 import Auth from '@/components/Auth.vue'
 import Post from '@/components/Post.vue'
+import PostEditor from '@/components/PostEditor.vue'
 
 Vue.use(VueRouter)
 
@@ -14,7 +15,8 @@ export default new VueRouter({
     { path: '/', component: Main, meta: { requiresAuth: true } },
     { path: '/auth', component: Auth },
     { path: '/hello', component: Hello, meta: { requiresAuth: true } },
-    { path: '/posts/:id', component: Post, name: 'post' }
+    { path: '/posts/new', component: PostEditor, name: 'postEditor' },
+    { path: '/posts/:id', component: Post, name: 'post' },
   ]
 })
 
