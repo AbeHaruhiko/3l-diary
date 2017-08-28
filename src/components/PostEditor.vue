@@ -1,21 +1,50 @@
 <template>
   <div class="container">
-    <textarea class="form-control" rows="3"></textarea>
+    <textarea class="form-control" rows="3" v-model="postBody"></textarea>
+    <input class="btn btn-default" type="button" value="投稿する" @click="saveDiary">
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import request from 'superagent'
+
+import * as consts from '../consts/consts'
+// import {Post} from '../types/Post'
 
 @Component({
 })
 export default class PostEditor extends Vue {
 
-  // post = this.$store.getters.getPostById(this.$route.params.id)
+  postBody: string = ''
+
+  saveDiary () {
+    console.log("function 'saveDiary' called.")
+
+    if (!this.$store.state.currentUser) {
+    } else {
+      this.$store.state.currentUser.getIdToken(/* forceRefresh */ true).then(idToken => {
+        request
+          .post(consts.API_ENDPOINT + 'posts')
+          .send({ body: this.postBody, id: '', createdAt: '', updatedAt: '', username: idToken }) // sends a JSON post body
+          .set('X-Authorization-Firebase', idToken)
+          .end(function (err, res) {
+            if (err) throw err
+            console.log(res.body)
+          })
+      }).catch(error => {
+        // Handle error
+        console.log(error)
+      })
+    }
+  }
 }
 </script>
 
 <style scoped>
-
+  textarea {
+    width: 70%;
+    margin: auto;
+  }
 </style>
