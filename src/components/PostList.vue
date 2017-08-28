@@ -9,6 +9,11 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    まだ日記が投稿されていません。<br/>
+    さっそく日記を書いてみましょう！
+    <router-link :to="'posts/new'">ここをクリックして日記を書く</router-link>
+  </div>
 </template>
 
 <script lang="ts">
@@ -26,11 +31,8 @@ export default class PostList extends Vue {
     console.log(id)
     this.$router.push({ name: 'post', params: { id: id } })
   }
-  // getPostId (post) {
-  //   return post.objectId
-  // }
 }
 </script>
 
-<style>
+<style scoped>
 </style>

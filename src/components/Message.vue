@@ -21,7 +21,7 @@ export default class Message extends Vue {
 }
 </script>
 
-<style>
+<style scoped>
 #message {
   position: absolute;
   top: 10px;
