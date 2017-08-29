@@ -68,10 +68,11 @@ const actions = {
       // payload.router.push('/auth')
     } else {
       state.currentUser.getIdToken(/* forceRefresh */ true).then(idToken => {
+       console.log(idToken)
         request
           .get(consts.API_ENDPOINT + 'posts')
           .set('X-Authorization-Firebase', idToken)
-          .end(function (err, res) {
+          .end((err, res) => {
             if (err) throw err
             console.log(res.body)
             commit('setPosts', res.body)

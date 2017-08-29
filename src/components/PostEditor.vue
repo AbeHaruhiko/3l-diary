@@ -24,14 +24,17 @@ export default class PostEditor extends Vue {
 
     if (!this.$store.state.currentUser) {
     } else {
+      const router = this.$router // thisはパラメータの一番目にないといけないが、一番目はgetIdTokenの仕様上idTokenなので、thisを避けるため代入
+      console.log(router)
       this.$store.state.currentUser.getIdToken(/* forceRefresh */ true).then(idToken => {
         request
           .post(consts.API_ENDPOINT + 'posts')
-          .send({ body: this.postBody, id: '', createdAt: '', updatedAt: '', username: idToken }) // sends a JSON post body
+          .send({ body: this.postBody, id: '', createdAt: '', updatedAt: '', username: '' }) // sends a JSON post body
           .set('X-Authorization-Firebase', idToken)
-          .end(function (err, res) {
+          .end((err, res) => {
             if (err) throw err
             console.log(res.body)
+            this.$router.push('/')
           })
       }).catch(error => {
         // Handle error

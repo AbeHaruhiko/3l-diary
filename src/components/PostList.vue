@@ -1,5 +1,6 @@
 <template>
   <div v-if="$store.state.posts">
+    <router-link :to="'posts/new'">ここをクリックして日記を書く</router-link>
     <div class="panel panel-default" v-for="(post, index) in $store.state.posts.content" v-bind:key="index" v-if="post.body">
       <div class="panel-heading">
         <h3 class="panel-title"><a href="#" @click="moveToPost(post.id)">{{ post.createdAt }}</a></h3>
@@ -8,6 +9,7 @@
         {{ post.body }}
       </div>
     </div>
+    <router-link :to="'posts/new'">ここをクリックして日記を書く</router-link>
   </div>
   <div v-else>
     まだ日記が投稿されていません。<br/>
