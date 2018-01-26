@@ -28,3 +28,13 @@ npm test
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+# use with 3l-diary-server(https://github.com/AbeHaruhiko/3l-diary-server)
+
+## server
+run server on IntelliJ IDEA pushing 'Run'button.
+and 3l-diary-server will work on `https://localhost:8443/`.
+
+## client(this app)
+`npm run dev`
+and 3l-diary-client will be served on `http://localhost:8888/`.
